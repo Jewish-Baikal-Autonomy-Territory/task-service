@@ -24,6 +24,7 @@ jobs:
       linux-runner-image: ${{ steps.constants.outputs.linux-runner-image }}
     steps:
       - name: 'Define constants'
+        id: 'constants'
         run: |
           echo "linux-runner-image=ubuntu-24.04" >> $GITHUB_OUTPUT
 
