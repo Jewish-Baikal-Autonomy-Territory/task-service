@@ -1,0 +1,55 @@
+name: 'CI/CD'
+
+on:
+  workflow_dispatch: { }
+
+  push:
+    branches: [ 'main' ]
+
+  pull_request:
+    branches: [ 'main' ]
+
+env:
+  NODE_JS_VERSION: 24
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  config:
+    runs-on: 'ubuntu-24.04'
+    permissions: { }
+    outputs:
+      linux-runner-image: ${{ steps.constants.outputs.linux-runner-image }}
+    steps:
+      - name: 'Define constants'
+        run: |
+          echo "linux-runner-image=ubuntu-24.04" >> $GITHUB_OUTPUT
+
+  lint-commits:
+    runs-on: ${{ needs.config.outputs.linux-runner-image }}
+    permissions:
+      contents: 'read'
+    needs: [ 'config' ]
+    steps:
+      - name: 'Clone repository'
+        uses: 'actions/checkout@v6'
+        with:
+          fetch-depth: 0
+
+      - name: 'Setup Node.js'
+        uses: 'actions/setup-node@v6'
+        with:
+          node-version: ${{ env.NODE_JS_VERSION }}
+
+      - name: 'Setup commitlint'
+        run: npm install -D @commitlint/cli @commitlint/config-conventional
+
+      - name: 'Lint commits'
+        run: |
+          if [[ "${{ github.event_name == "push" ]]; then
+            npx commitlint --from ${{ github.event.before }} --to ${{ github.event.after }} --verbose
+          else
+            npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+          fi
