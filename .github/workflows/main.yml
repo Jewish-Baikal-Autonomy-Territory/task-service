@@ -11,7 +11,8 @@ on:
 
 env:
   NODE_JS_VERSION: 24
-  GO_VERSION: 1.26.2
+  GO_VERSION: '1.26.2'
+  GOLANGCI_LINT_VERSION: 'v2.11'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -56,11 +57,30 @@ jobs:
             npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
           fi
 
+  go-lint:
+    runs-on: ${{ needs.config.outputs.linux-runner-image }}
+    permissions:
+      contents: 'read'
+    needs: [ 'config' ]
+    steps:
+      - name: 'Clone repository'
+        uses: 'actions/checkout@v6'
+
+      - name: 'Setup go'
+        uses: 'actions/setup-go@v6'
+        with:
+          go-version: ${{ end.GO_VERSION }}
+
+      - name: 'Setup golang-ci linter'
+        uses: 'golangci/golangci-lint-action@v9'
+        with:
+          version: ${{ env.GOLANGCI_LINT_VERSION }}
+
   test:
     runs-on: ${{ needs.config.outputs.linux-runner-image }}
     permissions:
       contents: 'read'
-    needs: [ 'config', 'lint-commits' ]
+    needs: [ 'config', 'lint-commits', 'go-lint' ]
     steps:
       - name: 'Clone repository'
         uses: 'actions/checkout@v6'
