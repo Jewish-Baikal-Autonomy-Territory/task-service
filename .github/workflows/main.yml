@@ -69,7 +69,7 @@ jobs:
       - name: 'Setup go'
         uses: 'actions/setup-go@v6'
         with:
-          go-version: ${{ end.GO_VERSION }}
+          go-version: ${{ env.GO_VERSION }}
 
       - name: 'Setup golang-ci linter'
         uses: 'golangci/golangci-lint-action@v9'
