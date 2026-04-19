@@ -11,6 +11,7 @@ on:
 
 env:
   NODE_JS_VERSION: 24
+  GO_VERSION: 1.26.2
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
