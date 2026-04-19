@@ -54,3 +54,20 @@ jobs:
           else
             npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
           fi
+
+  test:
+    runs-on: ${{ needs.config.outputs.linux-runner-image }}
+    permissions:
+      contents: 'read'
+    needs: [ 'config', 'lint-commits' ]
+    steps:
+      - name: 'Clone repository'
+        uses: 'actions/checkout@v6'
+
+      - name: 'Setup go'
+        uses: 'actions/setup-go@v6'
+        with:
+          go-version: ${{ env.GO_VERSION }}
+
+      - name: 'Run tests'
+        run: go test ./...
