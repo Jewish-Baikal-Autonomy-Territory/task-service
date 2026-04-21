@@ -57,11 +57,35 @@ jobs:
             npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
           fi
 
+  check-changes:
+    runs-on: ${{ needs.config.outputs.linux-runner-image }}
+    permissions:
+      contents: 'read'
+    outputs:
+      has-important-changes: ${{ steps.filter.outputs.code }}
+    needs: [ 'config', 'lint-commits' ]
+    steps:
+      - name: 'Clone repository'
+        uses: 'actions/checkout@v6'
+
+      - name: 'Check important changes'
+        id: 'filter'
+        uses: 'dorny/paths-filter@v4'
+        with:
+          filters: |
+            code:
+              - '**/*.go'
+              - 'go.mod'
+              - 'go.sum'
+              - 'proto/**'
+              - 'Dockerfile'
+
   go-lint:
     runs-on: ${{ needs.config.outputs.linux-runner-image }}
     permissions:
       contents: 'read'
-    needs: [ 'config' ]
+    needs: [ 'config', 'check-changes' ]
+    if: needs.check-changes.outputs.has-important-changes == 'true'
     steps:
       - name: 'Clone repository'
         uses: 'actions/checkout@v6'
@@ -80,7 +104,7 @@ jobs:
     runs-on: ${{ needs.config.outputs.linux-runner-image }}
     permissions:
       contents: 'read'
-    needs: [ 'config', 'lint-commits', 'go-lint' ]
+    needs: [ 'config', 'go-lint' ]
     steps:
       - name: 'Clone repository'
         uses: 'actions/checkout@v6'
