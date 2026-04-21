@@ -74,6 +74,7 @@ jobs:
         with:
           filters: |
             code:
+              - '.github/workflows/*.yml'
               - '**/*.go'
               - 'go.mod'
               - 'go.sum'
