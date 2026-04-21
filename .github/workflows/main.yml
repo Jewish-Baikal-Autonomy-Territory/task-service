@@ -120,6 +120,7 @@ jobs:
   test:
     runs-on: ${{ needs.config.outputs.linux-runner-image }}
     permissions:
+      id-token: 'write'
       contents: 'read'
     needs: [ 'config', 'build' ]
     steps:
@@ -132,4 +133,11 @@ jobs:
           go-version: ${{ env.GO_VERSION }}
 
       - name: 'Run tests'
-        run: go test ./...
+        run: go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
+
+      - name: 'Codecov statistics'
+        uses: 'codecov/codecov-action@v5'
+        with:
+          name: 'task-service-codecov'
+          use_oidc: true
+          flags: 'unittests'
