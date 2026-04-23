@@ -7,19 +7,19 @@ import (
 type TaskStatus int
 
 const (
-	TASK_STATUS_UNKNOWN TaskStatus = iota
-	TASK_STATUS_ACTIVE
-	TASK_STATUS_COMPLETED
-	TASK_STATUS_PENDING_DELETION
+	TaskStatusUnknown TaskStatus = iota
+	TaskStatusActive
+	TaskStatusCompleted
+	TaskStatusPendingDeletion
 )
 
 func (ts TaskStatus) String() string {
 	switch ts {
-	case TASK_STATUS_ACTIVE:
+	case TaskStatusActive:
 		return "active"
-	case TASK_STATUS_COMPLETED:
+	case TaskStatusCompleted:
 		return "completed"
-	case TASK_STATUS_PENDING_DELETION:
+	case TaskStatusPendingDeletion:
 		return "deleting"
 	default:
 		return "unknown"
@@ -29,19 +29,19 @@ func (ts TaskStatus) String() string {
 type TaskPriority int
 
 const (
-	TASK_PRIORITY_UNKNOWN TaskPriority = iota
-	TASK_PRIORITY_LOW
-	TASK_PRIORITY_MEDIUM
-	TASK_PRIORITY_HIGH
+	TaskPriorityUnknown TaskPriority = iota
+	TaskPriorityLow
+	TaskPriorityMedium
+	TaskPriorityHigh
 )
 
 func (tp TaskPriority) String() string {
 	switch tp {
-	case TASK_PRIORITY_LOW:
+	case TaskPriorityLow:
 		return "low"
-	case TASK_PRIORITY_MEDIUM:
+	case TaskPriorityMedium:
 		return "medium"
-	case TASK_PRIORITY_HIGH:
+	case TaskPriorityHigh:
 		return "high"
 	default:
 		return "unknown"

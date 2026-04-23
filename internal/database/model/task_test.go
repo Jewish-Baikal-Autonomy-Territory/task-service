@@ -10,22 +10,22 @@ func TestTaskPriority_String(t *testing.T) {
 	}{
 		{
 			name: "Unknown task priority",
-			tp:   TASK_PRIORITY_UNKNOWN,
+			tp:   TaskPriorityUnknown,
 			want: "unknown",
 		},
 		{
 			name: "Low priority",
-			tp:   TASK_PRIORITY_LOW,
+			tp:   TaskPriorityLow,
 			want: "low",
 		},
 		{
 			name: "Medium priority",
-			tp:   TASK_PRIORITY_MEDIUM,
+			tp:   TaskPriorityMedium,
 			want: "medium",
 		},
 		{
 			name: "High priority",
-			tp:   TASK_PRIORITY_HIGH,
+			tp:   TaskPriorityHigh,
 			want: "high",
 		},
 	}
@@ -44,25 +44,24 @@ func TestTaskStatus_String(t *testing.T) {
 		ts   TaskStatus
 		want string
 	}{
-		// TODO: Add test cases.
 		{
 			name: "Unknown task status",
-			ts:   TASK_STATUS_UNKNOWN,
+			ts:   TaskStatusUnknown,
 			want: "unknown",
 		},
 		{
 			name: "Active task status",
-			ts:   TASK_STATUS_ACTIVE,
+			ts:   TaskStatusActive,
 			want: "active",
 		},
 		{
 			name: "Completed task status",
-			ts:   TASK_STATUS_COMPLETED,
+			ts:   TaskStatusCompleted,
 			want: "completed",
 		},
 		{
 			name: "Deleting task status",
-			ts:   TASK_STATUS_PENDING_DELETION,
+			ts:   TaskStatusPendingDeletion,
 			want: "deleting",
 		},
 	}
