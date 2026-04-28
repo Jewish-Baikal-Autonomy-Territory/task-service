@@ -137,7 +137,7 @@ jobs:
         run: go test -v -race -coverprofile=coverage.out -covermode=atomic ./...
 
       - name: 'Codecov statistics'
-        uses: 'codecov/codecov-action@v5'
+        uses: 'codecov/codecov-action@v6'
         with:
           name: 'task-service-codecov'
           use_oidc: true
