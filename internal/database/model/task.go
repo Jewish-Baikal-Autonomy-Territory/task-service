@@ -53,14 +53,14 @@ type GeoPoint struct {
 }
 
 type Task struct {
-	Title       string       `validate:"required,max=200"`
-	Description string       `validate:"required,max=10000"`
-	Location    GeoPoint     `validate:"omitempty"`
-	Priority    TaskPriority `validate:"required"`
-	Status      TaskStatus   `validate:"required"`
-	IsFavorite  bool         `validate:"omitempty"`
-	CreatedAt   time.Time    `validate:"required"`
-	UpdatedAt   time.Time    `validate:"omitempty"`
-	CompletedAt time.Time    `validate:"omitempty"`
-	Deadline    time.Time    `validate:"omitempty"`
+	Title       string       `validate:"required,max=200" bson:"title"`
+	Description string       `validate:"required,max=10000" bson:"description"`
+	Location    GeoPoint     `validate:"omitempty" bson:"location"`
+	Priority    TaskPriority `validate:"required" bson:"priority"`
+	Status      TaskStatus   `validate:"required" bson:"status"`
+	IsFavorite  bool         `validate:"omitempty" bson:"is_favorite,omitempty"`
+	CreatedAt   time.Time    `validate:"required" bson:"created_at"`
+	UpdatedAt   time.Time    `validate:"omitempty" bson:"updated_at,omitempty"`
+	CompletedAt time.Time    `validate:"omitempty" bson:"completed_at,omitempty"`
+	Deadline    time.Time    `validate:"omitempty" bson:"deadline,omitempty"`
 }
