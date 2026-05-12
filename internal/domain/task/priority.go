@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var InvalidPriority = errors.New("invalid task priority")
+var ErrInvalidPriority = errors.New("invalid task priority")
 
 type Priority int8
 
@@ -43,6 +43,6 @@ func ParsePriority(priority string) (Priority, error) {
 	case "high":
 		return PriorityHigh, nil
 	default:
-		return PriorityUnknown, fmt.Errorf("%w: %s", InvalidPriority, priority)
+		return PriorityUnknown, fmt.Errorf("%w: %s", ErrInvalidPriority, priority)
 	}
 }

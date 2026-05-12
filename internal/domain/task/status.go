@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-var InvalidStatus = errors.New("invalid task status")
+var ErrInvalidStatus = errors.New("invalid task status")
 
 type Status int8
 
@@ -38,6 +38,6 @@ func ParseStatus(status string) (Status, error) {
 	case "completed":
 		return StatusCompleted, nil
 	default:
-		return StatusUnknown, fmt.Errorf("%w: %s", InvalidStatus, status)
+		return StatusUnknown, fmt.Errorf("%w: %s", ErrInvalidStatus, status)
 	}
 }
