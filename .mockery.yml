@@ -1,0 +1,17 @@
+all: false
+filename: mocks_test.go
+force-file-write: true
+formatter: goimports
+log-level: info
+structname: '{{.Mock}}{{.InterfaceName}}'
+pkgname: '{{.SrcPackageName}}'
+recursive: false
+template: testify
+packages:
+  task-service/internal/infrastructure/mongo:
+    config:
+      dir: '{{.InterfaceDir}}'
+      filename: 'mocks_test.go'
+      pkgname: '{{.SrcPackageName}}'
+    interfaces:
+      taskClient:
