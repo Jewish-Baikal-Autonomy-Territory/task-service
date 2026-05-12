@@ -1,0 +1,42 @@
+version: '2'
+
+linters-settings:
+  errcheck:
+    check-defer: false
+
+linters:
+  disable-all: true
+  enable:
+    - 'errcheck'
+    - 'govet'
+    - 'ineffassign'
+    - 'staticcheck'
+    - 'unused'
+    - 'asciicheck'
+    - 'bidichk'
+    - 'copyloopvar'
+    - 'cyclop'
+    - 'embeddedstructfieldcheck'
+    - 'errname'
+    - 'errorlint'
+    - 'gocheckcompilerdirectives'
+    - 'goconst'
+    - 'gocritic'
+    - 'godoclint'
+    - 'modernize'
+    - 'nestif'
+    - 'nonamedreturns'
+    - 'perfsprint'
+    - 'prealloc'
+    - 'predeclared'
+    - 'promlinter'
+    - 'protogetter'
+    - 'spancheck'
+    - 'unconvert'
+    - 'unparam'
+    - 'whitespace'
+    - 'zerologlint'
+
+run:
+  timeout: '5m'
+  tests: true
