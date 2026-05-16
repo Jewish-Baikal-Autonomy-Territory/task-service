@@ -10,8 +10,15 @@ template: testify
 packages:
   task-service/internal/infrastructure/mongo:
     config:
-      dir: '{{.InterfaceDir}}'
-      filename: 'mocks_test.go'
-      pkgname: '{{.SrcPackageName}}'
+      dir: '{{.InterfaceDir}}/mocks'
+      filename: 'mocks_{{.InterfaceName}}.go'
+      pkgname: 'mocks'
     interfaces:
-      taskClient:
+      TaskClient:
+  task-service/internal/domain/task:
+    config:
+      dir: '{{.InterfaceDir}}/mocks'
+      filename: 'mock_{{.InterfaceName}}.go'
+      pkgname: 'mocks'
+    interfaces:
+      Repository:

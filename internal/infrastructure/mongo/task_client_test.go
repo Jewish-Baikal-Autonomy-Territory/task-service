@@ -113,7 +113,7 @@ func Test_newTaskClient(t *testing.T) {
 	tests := []struct {
 		name    string
 		args    args
-		want    taskClient
+		want    TaskClient
 		wantErr bool
 	}{
 		{

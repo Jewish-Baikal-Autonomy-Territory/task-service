@@ -131,3 +131,9 @@ db.createCollection("tasks", {
 })
 
 db.tasks.createIndex({"location": "2dsphere"})
+db.tasks.createIndex(
+    {
+        "title": "text",
+        "description": "text",
+    }
+)

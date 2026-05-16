@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo/readpref"
 )
 
-type taskClient interface {
+type TaskClient interface {
 	Database() *mongo.Database
 	Disconnect(ctx context.Context) error
 	Ping(ctx context.Context) error
@@ -36,7 +36,7 @@ type taskClientOpts struct {
 	database         string
 }
 
-func newTaskClient(opts taskClientOpts) (taskClient, error) {
+func newTaskClient(opts taskClientOpts) (TaskClient, error) {
 	client, err := mongo.Connect(options.Client().ApplyURI(opts.connectionString))
 	if err != nil {
 		return nil, err

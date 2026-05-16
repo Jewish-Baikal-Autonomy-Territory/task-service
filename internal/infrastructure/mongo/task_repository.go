@@ -12,7 +12,7 @@ import (
 )
 
 type mongoTaskRepository struct {
-	client         taskClient
+	client         TaskClient
 	taskCollection string
 }
 
@@ -181,7 +181,7 @@ type TaskRepositoryOpts struct {
 	Collection string
 }
 
-func NewTaskRepository(client taskClient, opts TaskRepositoryOpts) task.Repository {
+func NewTaskRepository(client TaskClient, opts TaskRepositoryOpts) task.Repository {
 	return &mongoTaskRepository{
 		client:         client,
 		taskCollection: opts.Collection,

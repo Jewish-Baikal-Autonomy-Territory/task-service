@@ -7,6 +7,7 @@ import (
 	"path"
 	"reflect"
 	domaintask "task-service/internal/domain/task"
+	"task-service/internal/infrastructure/mongo/mocks"
 	"testing"
 	"time"
 
@@ -725,7 +726,7 @@ func Test_fromDomainFilter(t *testing.T) {
 
 func Test_mongoTaskRepository_Close(t *testing.T) {
 	type fields struct {
-		client         taskClient
+		client         TaskClient
 		taskCollection string
 	}
 	type args struct {
@@ -740,8 +741,8 @@ func Test_mongoTaskRepository_Close(t *testing.T) {
 		{
 			name: "invalid client",
 			fields: fields{
-				client: func() *mocktaskClient {
-					m := newMocktaskClient(t)
+				client: func() TaskClient {
+					m := mocks.NewMockTaskClient(t)
 					m.EXPECT().Disconnect(mock.Anything).Return(errors.New("error"))
 					return m
 				}(),
@@ -768,7 +769,7 @@ func Test_mongoTaskRepository_Close(t *testing.T) {
 
 func Test_mongoTaskRepository_FindAll(t *testing.T) {
 	type fields struct {
-		client         taskClient
+		client         TaskClient
 		taskCollection string
 	}
 	type args struct {
@@ -820,7 +821,7 @@ func Test_mongoTaskRepository_FindAll(t *testing.T) {
 
 func Test_mongoTaskRepository_FindByID(t *testing.T) {
 	type fields struct {
-		client         taskClient
+		client         TaskClient
 		taskCollection string
 	}
 	type args struct {
@@ -871,7 +872,7 @@ func Test_mongoTaskRepository_FindByID(t *testing.T) {
 
 func Test_mongoTaskRepository_FindDeleted(t *testing.T) {
 	type fields struct {
-		client         taskClient
+		client         TaskClient
 		taskCollection string
 	}
 	type args struct {
@@ -924,7 +925,7 @@ func Test_mongoTaskRepository_FindDeleted(t *testing.T) {
 
 func Test_mongoTaskRepository_Update(t *testing.T) {
 	type fields struct {
-		client         taskClient
+		client         TaskClient
 		taskCollection string
 	}
 	type args struct {
