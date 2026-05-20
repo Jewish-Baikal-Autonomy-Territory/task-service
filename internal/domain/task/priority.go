@@ -18,7 +18,7 @@ const (
 )
 
 func (p Priority) Valid() bool {
-	return p != PriorityUnknown
+	return PriorityUnknown < p && p <= PriorityHigh
 }
 
 func (p Priority) String() string {

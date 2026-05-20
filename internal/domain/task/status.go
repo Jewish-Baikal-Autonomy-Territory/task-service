@@ -17,7 +17,7 @@ const (
 )
 
 func (s Status) Valid() bool {
-	return s != StatusUnknown
+	return StatusUnknown < s && s <= StatusCompleted
 }
 
 func (s Status) String() string {
