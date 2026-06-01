@@ -8,11 +8,11 @@ var (
 )
 
 type GeoPoint struct {
-	Latitude  float32
-	Longitude float32
+	Latitude  float64
+	Longitude float64
 }
 
-func NewGeoPoint(latitude, longitude float32) (GeoPoint, error) {
+func NewGeoPoint(latitude, longitude float64) (GeoPoint, error) {
 	if latitude < -90 || latitude > 90 {
 		return GeoPoint{}, ErrInvalidLatitude
 	}
