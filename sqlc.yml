@@ -1,0 +1,51 @@
+version: 2
+
+sql:
+  - engine: 'postgresql'
+    queries: 'internal/infrastructure/postgres/queries'
+    schema: 'internal/infrastructure/postgres/migrations'
+    gen:
+      go:
+        package: 'sqlcgen'
+        sql_package: 'pgx/v5'
+        out: 'internal/infrastructure/postgres/sqlcgen'
+        emit_pointers_for_null_types: true
+        emit_enum_valid_method: true
+        overrides:
+          - db_type: 'geometry'
+            go_type: '*github.com/twpayne/go-geom.Point'
+
+          - db_type: 'regconfig'
+            go_type: 'string'
+
+          - db_type: 'uuid'
+            go_type:
+              import: 'github.com/google/uuid'
+              package: 'uuid'
+              type: 'UUID'
+
+          - db_type: 'uuid'
+            nullable: true
+            go_type:
+              import: 'github.com/google/uuid'
+              package: 'uuid'
+              type: 'UUID'
+              pointer: true
+
+          - db_type: 'timestamptz'
+            go_type: 'time.Time'
+
+          - db_type: 'timestamptz'
+            nullable: true
+            go_type:
+              type: 'time.Time'
+              pointer: true
+
+          - db_type: 'pgtasks.task_status'
+            go_type: 'string'
+
+          - db_type: 'pgtasks.task_priority'
+            go_type: 'string'
+
+          - db_type: 'pgtasks.task_icon'
+            go_type: 'string'
