@@ -1,14 +1,11 @@
 package task
 
 import (
-	"errors"
 	"fmt"
 	"strings"
 )
 
-var ErrInvalidPriority = errors.New("invalid task priority")
-
-type Priority int8
+type Priority int32
 
 const (
 	PriorityUnknown Priority = iota
@@ -43,6 +40,6 @@ func ParsePriority(priority string) (Priority, error) {
 	case "high":
 		return PriorityHigh, nil
 	default:
-		return PriorityUnknown, fmt.Errorf("%w: %s", ErrInvalidPriority, priority)
+		return PriorityUnknown, fmt.Errorf("%w: %s", ErrInvalidData, priority)
 	}
 }
