@@ -1,0 +1,26 @@
+edition = "2023";
+
+package jbat.task;
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+enum TaskIcon {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_enum) = {
+    title: "TaskIcon",
+    description: "Icon associated with the task."
+  };
+
+  TASK_ICON_UNSPECIFIED = 0;
+  TASK_ICON_MARK = 1;
+  TASK_ICON_HOME = 2;
+  TASK_ICON_JOB = 3;
+  TASK_ICON_SUPERMARKET = 4;
+  TASK_ICON_CAFE = 5;
+  TASK_ICON_ACTIVITY = 6;
+  TASK_ICON_DRIVE = 7;
+  TASK_ICON_FLIGHT = 8;
+  TASK_ICON_STAR = 9;
+  TASK_ICON_FLAG = 10;
+  TASK_ICON_HOSPITAL = 11;
+  TASK_ICON_OUTDOOR = 12;
+}

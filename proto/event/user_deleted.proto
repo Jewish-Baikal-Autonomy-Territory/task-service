@@ -1,0 +1,14 @@
+edition = "2023";
+
+package jbat.event;
+
+import "buf/validate/validate.proto";
+
+option features.field_presence = EXPLICIT;
+
+message UserDeleted {
+  string user_id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+}

@@ -1,0 +1,548 @@
+edition = "2023";
+
+package jbat.task;
+
+import "google/protobuf/empty.proto";
+import "task/get_task_request.proto";
+import "task/get_task_response.proto";
+import "task/complete_task_request.proto";
+import "task/create_task_request.proto";
+import "task/create_task_response.proto";
+import "task/update_task_request.proto";
+import "task/search_tasks_response.proto";
+import "task/delete_task_request.proto";
+import "task/restore_task_request.proto";
+import "task/task_filter.proto";
+import "task/delete_task_response.proto";
+import "task/list_deleted_request.proto";
+import "google/api/annotations.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+  info: {
+    title: "Task Service API",
+    version: "1.0.0"
+
+    contact: {
+      name: "Kirill Morozov"
+      email: "kirillsm05@gmail.com"
+    }
+
+    license: {
+      name: "Apache License 2.0"
+      url: "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  }
+
+  host: "geo-test.dellyis.ru"
+  schemes: HTTPS
+  consumes: "application/json"
+  produces: "application/json"
+
+  tags: {
+    name: "Task",
+    description: "Internal service for task manipulation."
+  }
+
+  security_definitions: {
+    security: {
+      key: "BearerAuth"
+      value: {
+        type: TYPE_API_KEY
+        in: IN_HEADER
+        name: "Authorization"
+        description: 'JWT Bearer Token. Format: "Bearer <token>"'
+      }
+    }
+  }
+
+  security: {
+    security_requirement: {
+      key: "BearerAuth"
+      value: {}
+    }
+  }
+
+  responses: {
+    key: "400"
+    value: {
+      description: "Bad Request - malformed or missing fields."
+      schema: {
+        json_schema: {
+          ref: ".google.rpc.Status"
+        }
+      }
+    }
+  }
+
+  responses: {
+    key: "401"
+    value: {
+      description: "Authorization - missing authorization information."
+      schema: {
+        json_schema: {
+          ref: ".google.rpc.Status"
+        }
+      }
+    }
+  }
+
+  responses: {
+    key: "429"
+    value: {
+      description: "Too Many Requests - the client sent too many requests in a given amount of time."
+      headers: {
+        key: "Retry-After"
+        value: {
+          description: "Seconds to wait before retrying."
+          type: "numeric"
+        }
+      }
+      schema: {
+        json_schema: {
+          ref: ".google.rpc.Status"
+        }
+      }
+    }
+  }
+
+  responses: {
+    key: "500"
+    value: {
+      description: "Internal Server Error."
+      schema: {
+        json_schema: {
+          ref: ".google.rpc.Status"
+        }
+      }
+    }
+  }
+};
+
+service TaskService {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_tag) = {
+    name: "Task"
+    description: "Internal service for task manipulation."
+  };
+
+  rpc GetTask(GetTaskRequest) returns (GetTaskResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/task/{id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "get_task"
+      summary: "Provides the ability to get task by id and owner id."
+      description: "Involves the process of task owner validation."
+      tags: "Task"
+
+      responses: {
+        key: "200"
+        value: {
+          description: "OK - the task indicated by id that contained in the system."
+          schema: {
+            json_schema: {
+              ref: ".jbat.task.GetTaskResponse"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "404"
+        value: {
+          description: "Not Found - task is not found in the system."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+
+
+      responses: {
+        key: "503"
+        value: {
+          description: "Service Unavailable - service is temporarily unavailable."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+    };
+  }
+
+  rpc SearchTasks(TaskFilter) returns (SearchTasksResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/tasks"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "search_tasks"
+      summary: "Provides the ability to search specific tasks with filter."
+      description: "Involves the process of filtering tasks based on passed conditions."
+      tags: "Task"
+
+      responses: {
+        key: "200"
+        value: {
+          description: "OK - the tasks that was successfully retrieved from the system."
+          schema: {
+            json_schema: {
+              ref: ".jbat.task.SearchTasksResponse"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "404"
+        value: {
+          description: "Not Found - tasks is not found in the system."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "429"
+        value: {
+          description: "Too Many Requests - the client sent too many requests in a given amount of time."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "503"
+        value: {
+          description: "Service Unavailable - service is temporarily unavailable."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+    };
+  }
+
+  rpc CompleteTask(CompleteTaskRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/api/v1/task/{id}:complete"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "complete_task"
+      summary: "Provides the ability to mark task as completed."
+      description: "Involves the process of saving the new state of the task in the system."
+      tags: "Task"
+
+      responses: {
+        key: "200"
+        value: {
+          description: "OK - the task was successfully completed."
+          schema: {
+            json_schema: {
+              ref: ".google.protobuf.Empty"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "404"
+        value: {
+          description: "Not Found - task is not found in the system."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "429"
+        value: {
+          description: "Too Many Requests - the client sent too many requests in given amount of time."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "503"
+        value: {
+          description: "Service Unavailable - service is temporarily unavailable."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+    };
+  }
+
+  rpc CreateTask(CreateTaskRequest) returns (CreateTaskResponse) {
+    option (google.api.http) = {
+      post: "/api/v1/task"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "create_task"
+      summary: "Provides the ability to create new task in the system."
+      description: "Involves the process of creating new task in the system."
+      tags: "Task"
+
+      responses: {
+        key: "201"
+        value: {
+          description: "Created - the task was successfully created."
+          schema: {
+            json_schema: {
+              ref: ".jbat.task.CreateTaskResponse"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "503"
+        value: {
+          description: "Service Unavailable - service is temporarily unavailable."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+    };
+  }
+
+  rpc UpdateTask(UpdateTaskRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      patch: "/api/v1/task"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "update_task"
+      summary: "Provides the ability to update task with information passed by the client."
+      description: "Involves the process of updating the task with new information."
+      tags: "Task"
+
+      responses: {
+        key: "200"
+        value: {
+          description: "OK - the task was successfully updated."
+          schema: {
+            json_schema: {
+              ref: ".google.protobuf.Empty"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "404"
+        value: {
+          description: "Not Found - the task is not found in the system."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "503"
+        value: {
+          description: "Service Unavailable - service is temporarily unavailable."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+    };
+  }
+
+  rpc DeleteTask(DeleteTaskRequest) returns (DeleteTaskResponse) {
+    option (google.api.http) = {
+      delete: "/api/v1/task/{id}"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "delete_task"
+      summary: "Provides the ability to delete task from the system which can be restores in given amount of time."
+      description: "Involves the process of changing the task state to pending delete which then will be permanently deleted after given amount of time."
+      tags: "Task"
+
+      responses: {
+        key: "202"
+        value: {
+          description: "Accepted - the task is accepted for deletion."
+          schema: {
+            json_schema: {
+              ref: ".jbat.task.DeleteTaskResponse"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "404"
+        value: {
+          description: "Not Found - the task is not found in the system."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "429"
+        value: {
+          description: "Too Many Requests - the client sent too many requests in a given amount of time."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "503"
+        value: {
+          description: "Service Unavailable - service is temporarily unavailable."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+    };
+  }
+
+  rpc RestoreTask(RestoreTaskRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      post: "/api/v1/task/{id}:restore"
+      body: "*"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "restore_task"
+      summary: "Provides the ability to restore deleted tasks."
+      description: "Involves the process of task restoration if given amount of time has not been passed."
+      tags: "Task"
+
+      responses: {
+        key: "200"
+        value: {
+          description: "OK - the task was successfully restored in the system."
+          schema: {
+            json_schema: {
+              ref: ".google.protobuf.Empty"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "404"
+        value: {
+          description: "Not Found - the task is not found in the system."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "503"
+        value: {
+          description: "Service Unavailable - service is temporarily unavailable."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+    };
+  }
+
+  rpc ListDeleted(ListDeletedRequest) returns (SearchTasksResponse) {
+    option (google.api.http) = {
+      get: "/api/v1/tasks/deleted"
+    };
+
+    option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+      operation_id: "list_deleted"
+      summary: "Provides the ability to get deleted tasks ids."
+      description: "Involves the process of task retrieval and passing ids to the caller."
+      tags: "Task"
+
+      responses: {
+        key: "200"
+        value: {
+          description: "OK - the deleted tasks was found and passed to the client."
+          schema: {
+            json_schema: {
+              ref: ".jbat.task.SearchTasksResponse"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "404"
+        value: {
+          description: "Not Found - the deleted tasks was not found in the system."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+
+      responses: {
+        key: "503"
+        value: {
+          description: "Service Unavailable - service is temporarily unavailable."
+          schema: {
+            json_schema: {
+              ref: ".google.rpc.Status"
+            }
+          }
+        }
+      }
+    };
+  }
+}

@@ -1,0 +1,134 @@
+edition = "2023";
+
+package jbat.task;
+
+import "task/geo_filter.proto";
+import "task/task_priority.proto";
+import "task/task_status.proto";
+import "task/cursor.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "buf/validate/validate.proto";
+
+option features.field_presence = EXPLICIT;
+
+message TaskFilter {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "TaskFilter",
+      description: "Provides the ability to filter the tasks set. At least one of the fields must be present.",
+      required: [
+        "query"
+      ]
+    }
+
+    example: '{"search_query":"Title Description -Geo","group_id":"123e4567-e89b-12d3-a456-426614174001"},"geo_filter":{"location":{"latitude":"37.7749","longitude":"122.4194"},"radius":"5000"}}'
+  };
+
+  string search_query = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 10000,
+
+    json_name = "query",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "query",
+      description: "Text query to search that will be used for exact or keywords matching. Also support negation patterns to exclude search patters.",
+      required: "true",
+      format: "string",
+      min_length: 1,
+      max_length: 10000,
+      example: '"buy -milk"'
+    }
+  ];
+
+  string group_id = 2 [
+    (buf.validate.field).required = false,
+    (buf.validate.field).string.uuid = true,
+
+    json_name = "group_id",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "group_id",
+      description: "UUID of the group the task belongs to (optional).",
+      required: "false",
+      format: "string",
+      pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      example: '"123e4567-e89b-12d3-a456-426614174001"'
+    }
+  ];
+
+
+  GeoFilter geo_filter = 3 [
+    (buf.validate.field).required = false,
+
+    json_name = "geo_filter",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "geo_filter",
+      description: "Filter that gives the ability to provide additional area information.",
+      required: "false",
+      format: "object",
+      example: '{"location":{"latitude":"37.7749","longitude":"122.4194"},"radius":"5000"}'
+    }
+  ];
+
+  bool is_favorite = 4 [
+    (buf.validate.field).required = false,
+
+    json_name = "is_favorite",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "is_favorite",
+      description: "Whether the task is marked as favorite",
+      required: "false",
+      format: "boolean",
+      example: "true"
+    }
+  ];
+
+  TaskPriority priority = 5 [
+    (buf.validate.field).required = false,
+    (buf.validate.field).enum.defined_only = true,
+
+    json_name = "priority",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "priority",
+      description: "Priority level of the task (low, medium, high).",
+      required: "false",
+      format: "string",
+      example: '"TASK_PRIORITY_LOW"'
+    }
+  ];
+
+  TaskStatus status = 6 [
+    (buf.validate.field).required = false,
+    (buf.validate.field).enum.defined_only = true,
+
+    json_name = "status",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "status",
+      description: "Priority level of the task (low, medium, high).",
+      required: "false",
+      format: "string",
+      example: '"TASK_STATUS_PENDING"'
+    }
+  ];
+
+  Cursor cursor = 7 [
+    (buf.validate.field).required = true,
+
+    json_name = "cursor",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "cursor",
+      description: "Cursor that represents current position and output limit of tasks.",
+      required: "true",
+      format: "object",
+      example: '{"offset":"20","limit":"20"}'
+    }
+  ];
+}

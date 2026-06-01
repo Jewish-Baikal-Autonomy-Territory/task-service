@@ -1,0 +1,49 @@
+edition = "2023";
+
+package jbat.task;
+
+import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option features.field_presence = EXPLICIT;
+
+message DeleteTaskResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "DeleteTaskResponse",
+      description: "Transfer information about a task id and time point when task will be permanently deleted.",
+      required: [
+        "id",
+        "purge_at"
+      ]
+    }
+
+    example: '{"id":"123e4567-e89b-12d3-a456-426614174001","purge_at":"2024-12-31T23:59:59Z"}'
+  };
+
+  string id = 1 [
+    json_name = "id",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "id",
+      description: "UUID id of the task which is pending deletion.",
+      required: "true",
+      format: "string",
+      example: '"123e4567-e89b-12d3-a456-426614174001"'
+    }
+  ];
+
+  google.protobuf.Timestamp purge_at = 2 [
+    json_name = "purge_at",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "purge_at",
+      description: "Time point after which task will be permanently deleted.",
+      required: "true",
+      format: "date-time",
+      example: '"2024-12-31T23:59:59Z"'
+    }
+  ];
+}

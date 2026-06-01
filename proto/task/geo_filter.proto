@@ -1,0 +1,54 @@
+edition = "2023";
+
+package jbat.task;
+
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "buf/validate/validate.proto";
+import "task/geo_point.proto";
+
+option features.field_presence = EXPLICIT;
+
+message GeoFilter {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GeoFilter",
+      description: "Transfer the information that provides the ability to filter tasks according to geographical location and radius.",
+      required: [
+        "location",
+        "radius"
+      ]
+    }
+
+    example: '{"location":{"latitude":"37.7749","longitude":"122.4194"},"radius":"5"}'
+  };
+
+  GeoPoint location = 1 [
+    (buf.validate.field).required = true,
+
+    json_name = "location",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "location",
+      description: "Geographical location associated with the task.",
+      required: "true",
+      format: "object",
+      example: '{"latitude":"37.7749","longitude":"122.4194"}'
+    }
+  ];
+
+  double radius = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).double.gte = 0.0,
+
+    json_name = "radius",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "radius",
+      description: "Radius of the area where searching will be performed in meters.",
+      required: "true",
+      format: "string",
+      example: '5000.0'
+    }
+  ];
+}

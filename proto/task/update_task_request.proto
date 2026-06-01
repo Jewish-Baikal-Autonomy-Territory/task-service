@@ -1,0 +1,183 @@
+edition = "2023";
+
+package jbat.task;
+
+import "google/protobuf/timestamp.proto";
+import "task/geo_point.proto";
+import "task/task_priority.proto";
+import "task/task_icon.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "buf/validate/validate.proto";
+import "google/api/field_behavior.proto";
+
+option features.field_presence = EXPLICIT;
+
+message UpdateTaskRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "UpdateTaskRequest",
+      description: "Transfer the information about fields to update.",
+      required: [
+        "id"
+      ]
+    }
+
+    example: '{"id":"123e4567-e89b-12d3-a456-426614174001","is_favorite":true,"priority":"TASK_PRIORITY_HIGH"}'
+
+  };
+
+  string id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true,
+
+    json_name = "id",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "id",
+      description: "UUID of the task to update.",
+      required: "true",
+      format: "string",
+      pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      example: '"123e4567-e89b-12d3-a456-426614174000"'
+    }
+  ];
+
+  string group_id = 2 [
+    (buf.validate.field).required = false,
+    (buf.validate.field).string.uuid = true,
+
+    json_name = "group_id",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "group_id",
+      description: "UUID of the group the task belongs to (optional).",
+      required: "false",
+      format: "string",
+      pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      example: '"123e4567-e89b-12d3-a456-426614174001"'
+    }
+  ];
+
+  string title = 3 [
+    (buf.validate.field).required = false,
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 200,
+
+    json_name = "title",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "title",
+      description: "Title of the task.",
+      required: "true",
+      format: "string",
+      min_length: 1,
+      max_length: 200,
+      example: '"Buy groceries"'
+    }
+  ];
+
+  string description = 4 [
+    (buf.validate.field).required = false,
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 10000,
+
+    json_name = "description",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "description",
+      description: "Detailed description of the task.",
+      required: "true",
+      format: "string",
+      min_length: 1,
+      max_length: 10000,
+      example: '"Milk, Bread, Eggs."'
+    }
+  ];
+
+  GeoPoint location = 5 [
+    (buf.validate.field).required = false,
+
+    json_name = "location",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "location",
+      description: "Geographical location associated with the task (optional).",
+      required: "false",
+      format: "object",
+      example: '{"latitude":"37.7749","longitude":"122.4194"}'
+    }
+  ];
+
+  bool is_favorite = 6 [
+    (buf.validate.field).required = false,
+
+    json_name = "is_favorite",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "is_favorite",
+      description: "Whether the task is marked as favorite.",
+      required: "true",
+      format: "boolean",
+      example: "true"
+    }
+  ];
+
+  TaskPriority priority = 7 [
+    (buf.validate.field).required = false,
+    (buf.validate.field).enum.defined_only = true,
+
+    json_name = "priority",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "priority",
+      description: "Priority level of the task (low, medium, high).",
+      required: "true",
+      format: "string",
+      example: '"TASK_PRIORITY_LOW"'
+    }
+  ];
+
+  TaskIcon icon = 8 [
+    (buf.validate.field).required = false,
+    (buf.validate.field).enum.defined_only = true,
+
+    json_name = "icon",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "icon",
+      description: "Icon associated with the task (optional).",
+      required: "true",
+      format: "string",
+      example: '"TASK_ICON_MARK"'
+    }
+  ];
+
+  google.protobuf.Timestamp deadline = 9 [
+    (buf.validate.field).required = false,
+
+    json_name = "deadline",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "deadline",
+      description: "Deadline for the task (optional).",
+      required: "false",
+      format: "date-time",
+      example: '"2024-12-31T23:59:59Z"'
+    }
+  ];
+
+  repeated google.protobuf.Timestamp notify_at = 10 [
+    (buf.validate.field).required = false,
+    (buf.validate.field).repeated.min_items = 1,
+
+    json_name = "notify_at",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "purge_at",
+      description: "Notification time points for the task (optional).",
+      required: "false",
+      format: "array",
+      example: '["2024-12-31T23:59:59Z"]'
+    }
+  ];
+}

@@ -1,0 +1,56 @@
+edition = "2023";
+
+package jbat.task;
+
+import "buf/validate/validate.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+option features.field_presence = EXPLICIT;
+
+message GeoPoint {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GeoPoint",
+      description: "Transfer information about a geographical point.",
+      required: [
+        "latitude",
+        "longitude"
+      ]
+    }
+
+    example: '{"latitude":"1.5","longitude":"2.3"}'
+  };
+
+  double latitude = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).double.gt = -90,
+    (buf.validate.field).double.lt = 90,
+
+    json_name = "latitude",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "latitude",
+      description: "Latitude of the geographical point between -90 and 90.",
+      required: "true",
+      format: "string",
+      example: '"1"'
+    }
+  ];
+
+  double longitude = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).double.gt = -180,
+    (buf.validate.field).double.lt = 180,
+
+    json_name = "longitude",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "longitude",
+      description: "Longitude of the geographical point between -180 and 180.",
+      required: "true",
+      format: "string",
+      example: '"2.0"'
+    }
+  ];
+}

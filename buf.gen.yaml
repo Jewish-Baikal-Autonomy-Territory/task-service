@@ -1,0 +1,30 @@
+version: 'v2'
+clean: true
+managed:
+  enabled: true
+  override:
+    - file_option: 'go_package_prefix'
+      value: "task-service/"
+    - file_option: 'go_package'
+      module: 'buf.build/bufbuild/protovalidate'
+      value: 'buf.build/go/protovalidate'
+    - file_option: 'go_package'
+      module: 'buf.build/googleapis/googleapis'
+      value: 'google.golang.org/genproto/googleapis/api/annotations'
+    - file_option: 'go_package'
+      module: 'buf.build/grpc-ecosystem/grpc-gateway'
+      value: 'github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options'
+plugins:
+  - remote: 'buf.build/protocolbuffers/go'
+    out: 'gen/go'
+  - remote: 'buf.build/grpc/go'
+    out: 'gen/go'
+  - remote: 'buf.build/grpc-ecosystem/openapiv2'
+    out: 'gen/openapiv2'
+    opt:
+      - 'allow_merge=true'
+      - 'merge_file_name=task_service'
+      - 'disable_default_errors=true'
+      - 'disable_default_responses=true'
+inputs:
+  - directory: 'proto'

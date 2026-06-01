@@ -1,0 +1,17 @@
+edition = "2023";
+
+package jbat.task;
+
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+enum TaskPriority {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_enum) = {
+    title: "TaskPriority",
+    description: "Priority level of a task."
+  };
+
+  TASK_PRIORITY_UNSPECIFIED = 0;
+  TASK_PRIORITY_LOW = 1;
+  TASK_PRIORITY_MEDIUM = 2;
+  TASK_PRIORITY_HIGH = 3;
+}

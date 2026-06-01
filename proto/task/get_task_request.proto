@@ -1,0 +1,39 @@
+edition = "2023";
+
+package jbat.task;
+
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "buf/validate/validate.proto";
+
+option features.field_presence = EXPLICIT;
+
+message GetTaskRequest {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetTaskRequest",
+      description: "Transfer information about a task to get.",
+      required: [
+        "id"
+      ]
+    }
+
+    example: '{"id":"123e4567-e89b-12d3-a456-426614174000"}'
+  };
+
+  string id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true,
+
+    json_name = "id",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "id",
+      description: "UUID of the task to get.",
+      required: "true",
+      format: "string",
+      pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      example: '"123e4567-e89b-12d3-a456-426614174000"'
+    }
+  ];
+}

@@ -1,0 +1,207 @@
+edition = "2023";
+
+package jbat.task;
+
+import "google/protobuf/timestamp.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+import "task/task_priority.proto";
+import "task/geo_point.proto";
+import "task/task_status.proto";
+import "task/task_icon.proto";
+
+message GetTaskResponse {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "GetTaskResponse",
+      description: "Transfer information about a task to get.",
+      required: [
+        "id",
+        "owner_id",
+        "title",
+        "description",
+        "is_favorite",
+        "priority",
+        "status",
+        "icon"
+      ]
+    }
+
+    example: '{"id":"123e4567-e89b-12d3-a456-426614174000","owner_id":"123e4567-e89b-12d3-a456-426614174000","title":"Title","description":"Description","is_favorite":true,"priority":"TASK_PRIORITY_LOW","status":"TASK_STATUS_PENDING","icon":"TASK_ICON_MARK"}'
+  };
+
+  string id = 1 [
+    json_name = "id",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "id",
+      description: "UUID of the task.",
+      required: "true",
+      format: "string",
+      pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      example: '"123e4567-e89b-12d3-a456-426614174000"'
+    }
+  ];
+
+  string owner_id = 2 [
+    json_name = "owner_id",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "owner_id",
+      description: "UUID of the user who owns the task.",
+      required: "true",
+      format: "string",
+      pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      example: '"123e4567-e89b-12d3-a456-426614174000"'
+    }
+  ];
+
+  string group_id = 3 [
+    json_name = "group_id",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "group_id",
+      description: "UUID of the group the task belongs to (optional).",
+      required: "false",
+      format: "string",
+      pattern: "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$",
+      example: '"123e4567-e89b-12d3-a456-426614174001"'
+    }
+  ];
+
+  string title = 4 [
+    json_name = "title",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "title",
+      description: "Title of the task.",
+      required: "true",
+      format: "string",
+      min_length: 1,
+      max_length: 200,
+      example: '"Buy groceries"'
+    }
+  ];
+
+  string description = 5 [
+    json_name = "description",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "description",
+      description: "Description of the task.",
+      required: "true",
+      format: "string",
+      min_length: 1,
+      max_length: 10000,
+      example: '"Buy milk, eggs, and bread from the supermarket."'
+    }
+  ];
+
+  GeoPoint location = 6 [
+    json_name = "location",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "location",
+      description: "Geographical location associated with the task (optional).",
+      required: "false",
+      format: "object",
+      example: '{"latitude":"37.7749","longitude":"122.4194"}'
+    }
+  ];
+
+  bool is_favorite = 7 [
+    json_name = "is_favorite",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "is_favorite",
+      description: "Indicates whether the task is marked as a favorite.",
+      required: "true",
+      format: "boolean",
+      example: "true"
+    }
+  ];
+
+  TaskPriority priority = 8 [
+    json_name = "priority",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "priority",
+      description: "Priority level of the task (e.g., low, medium, high).",
+      required: "true",
+      format: "string",
+      example: '"TASK_PRIORITY_LOW"'
+    }
+  ];
+
+  TaskStatus status = 9 [
+    json_name = "status",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "status",
+      description: "Status of the task.",
+      required: "true",
+      format: "string",
+      example: '"TASK_STATUS_PENDING"'
+    }
+  ];
+
+  TaskIcon icon = 10 [
+    json_name = "icon",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "icon",
+      description: "Icon associated with the task.",
+      required: "true",
+      format: "string",
+      example: '"TASK_ICON_MARK"'
+    }
+  ];
+
+  google.protobuf.Timestamp deadline = 11 [
+    json_name = "deadline",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "deadline",
+      description: "Deadline for the task (optional).",
+      required: "false",
+      format: "date-time",
+      example: '"2024-12-31T23:59:59Z"'
+    }
+  ];
+
+  google.protobuf.Timestamp purge_at = 12 [
+    json_name = "purge_at",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "purge_at",
+      description: "Timestamp when the task will be permanently deleted (optional).",
+      required: "false",
+      format: "date-time",
+      example: '"2025-01-31T23:59:59Z"'
+    }
+  ];
+
+  repeated google.protobuf.Timestamp notify_at = 13 [
+    json_name = "notify_at",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "notify_at",
+      description: "Notification time points for the task (optional).",
+      required: "false",
+      format: "array",
+      example: '["2025-01-31T23:59:59Z"]'
+    }
+  ];
+
+  google.protobuf.Timestamp completed_at = 14 [
+    json_name = "completed_at",
+    (google.api.field_behavior) = OPTIONAL,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "completed_at",
+      description: "Completion time when the task was successfully marked as completed (optional).",
+      required: "false",
+      format: "date-time",
+      example: '"2025-01-31T23:59:59Z"'
+    }
+  ];
+}

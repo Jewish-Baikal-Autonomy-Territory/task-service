@@ -1,0 +1,53 @@
+edition = "2023";
+
+package jbat.task;
+
+import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+import "google/api/field_behavior.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
+
+message Cursor {
+  option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_schema) = {
+    json_schema: {
+      title: "Cursor",
+      description: "Transfer information about time position and limit. Key should be the last time position received from search like method.",
+      required: [
+        "key",
+        "limit"
+      ]
+    }
+
+    example: '{"key":"2024-12-31T23:59:59Z","limit":"100"}'
+  };
+
+  google.protobuf.Timestamp key = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).timestamp.example = { seconds: 1672531200 },
+
+    json_name = "key",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "key",
+      description: "Key of the last tasks purge time (High-Water Mark cursor).",
+      required: "true",
+      format: "date-time",
+      example: '"2024-12-31T23:59:59Z"'
+    }
+  ];
+
+  uint64 limit = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).uint64.example = 10,
+
+    json_name = "limit",
+    (google.api.field_behavior) = REQUIRED,
+    (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
+      title: "limit",
+      description: "Limit of the tasks to output.",
+      required: "true",
+      format: "string",
+      example: '20'
+    }
+  ];
+}
