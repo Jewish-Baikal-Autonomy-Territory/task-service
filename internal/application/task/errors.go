@@ -5,6 +5,5 @@ import (
 )
 
 var (
-	ErrMismatchedOwner = errors.New("owner is not the original owner")
-	ErrUnsupported     = errors.New("unsupported")
+	ErrUnsupported = errors.New("unsupported")
 )
