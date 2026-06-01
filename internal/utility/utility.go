@@ -10,6 +10,7 @@ func GetEnv(key, fallback string) string {
 	if value, ok := os.LookupEnv(key); ok {
 		return value
 	}
+
 	return fallback
 }
 
@@ -19,6 +20,7 @@ func GetEnvInt(key string, fallback int) int {
 			return i
 		}
 	}
+
 	return fallback
 }
 
@@ -28,6 +30,7 @@ func GetEnvBool(key string, fallback bool) bool {
 			return b
 		}
 	}
+
 	return fallback
 }
 
@@ -37,5 +40,16 @@ func GetEnvDuration(key string, fallback time.Duration) time.Duration {
 			return dur
 		}
 	}
+
+	return fallback
+}
+
+func GetEnvFloat(key string, fallback float64) float64 {
+	if value, ok := os.LookupEnv(key); ok {
+		if f, err := strconv.ParseFloat(value, 64); err == nil {
+			return f
+		}
+	}
+
 	return fallback
 }
