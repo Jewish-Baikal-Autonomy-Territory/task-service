@@ -1,14 +1,11 @@
 package task
 
 import (
-	"errors"
 	"fmt"
 	"strings"
 )
 
-var ErrInvalidStatus = errors.New("invalid task status")
-
-type Status int8
+type Status int32
 
 const (
 	StatusUnknown Status = iota
@@ -38,6 +35,6 @@ func ParseStatus(status string) (Status, error) {
 	case "completed":
 		return StatusCompleted, nil
 	default:
-		return StatusUnknown, fmt.Errorf("%w: %s", ErrInvalidStatus, status)
+		return StatusUnknown, fmt.Errorf("%w: %s", ErrInvalidData, status)
 	}
 }
