@@ -2,7 +2,6 @@ package task
 
 import (
 	"errors"
-	"strings"
 	"time"
 
 	"github.com/google/uuid"
@@ -10,12 +9,10 @@ import (
 )
 
 var (
-	ErrAlreadyDeleted         = errors.New("task deleted")
-	ErrNotDeleted             = errors.New("task is not deleted")
-	ErrRestoreWindowClosed    = errors.New("task is not deleted")
-	ErrInvalidTaskTitle       = errors.New("invalid task title")
-	ErrInvalidTaskDescription = errors.New("invalid task description")
-	ErrInvalidTaskPriority    = errors.New("invalid task priority")
+	ErrAlreadyDeleted      = errors.New("task deleted")
+	ErrNotDeleted          = errors.New("task is not deleted")
+	ErrRestoreWindowClosed = errors.New("task is not deleted")
+	ErrInvalidData         = errors.New("invalid data")
 )
 
 const restoreWindow = 14 * 24 * time.Hour
@@ -30,12 +27,14 @@ type Task struct {
 	Location    mo.Option[GeoPoint]
 	IsFavorite  bool
 	Priority    Priority
+	Icon        Icon
 	Status      Status
 	CreatedAt   time.Time
 	UpdatedAt   time.Time
 	CompletedAt mo.Option[time.Time]
 	Deadline    mo.Option[time.Time]
 	PurgeAt     mo.Option[time.Time]
+	NotifyAt    []time.Time
 }
 
 func (t *Task) IsDeleted() bool {
@@ -43,7 +42,7 @@ func (t *Task) IsDeleted() bool {
 }
 
 func (t *Task) IsCompleted() bool {
-	return t.CompletedAt.IsSome()
+	return t.Status == StatusCompleted
 }
 
 func (t *Task) Complete() error {
@@ -51,6 +50,7 @@ func (t *Task) Complete() error {
 		return ErrAlreadyDeleted
 	}
 
+	t.Status = StatusCompleted
 	currentTime := time.Now()
 	t.CompletedAt = mo.Some(currentTime)
 	t.UpdatedAt = currentTime
@@ -89,26 +89,129 @@ func (t *Task) Restore() error {
 	return nil
 }
 
-func NewTask(ownerID uuid.UUID, title, description string, priority Priority) (*Task, error) {
-	if strings.TrimSpace(title) == "" {
-		return nil, ErrInvalidTaskTitle
+type Builder struct {
+	ownerID uuid.UUID
+	groupID mo.Option[uuid.UUID]
+
+	title       string
+	description string
+	location    mo.Option[GeoPoint]
+	isFavorite  bool
+	priority    Priority
+	icon        Icon
+	deadline    mo.Option[time.Time]
+	notifyAt    []time.Time
+}
+
+func (b *Builder) WithOwnerID(ownerID uuid.UUID) *Builder {
+	b.ownerID = ownerID
+	return b
+}
+
+func (b *Builder) WithGroupID(groupID uuid.UUID) *Builder {
+	b.groupID = mo.Some(groupID)
+	return b
+}
+
+func (b *Builder) WithTitle(title string) *Builder {
+	b.title = title
+	return b
+}
+
+func (b *Builder) WithDescription(description string) *Builder {
+	b.description = description
+	return b
+}
+
+func (b *Builder) WithLocation(location GeoPoint) *Builder {
+	b.location = mo.Some(location)
+	return b
+}
+
+func (b *Builder) WithIsFavorite(isFavorite bool) *Builder {
+	b.isFavorite = isFavorite
+	return b
+}
+
+func (b *Builder) WithPriority(priority Priority) *Builder {
+	b.priority = priority
+	return b
+}
+
+func (b *Builder) WithIcon(icon Icon) *Builder {
+	b.icon = icon
+	return b
+}
+
+func (b *Builder) WithDeadline(deadline time.Time) *Builder {
+	b.deadline = mo.Some(deadline)
+	return b
+}
+
+func (b *Builder) WithNotifyAt(notifyAt []time.Time) *Builder {
+	b.notifyAt = notifyAt
+	return b
+}
+
+func (b *Builder) Build() (*Task, error) {
+	if b.ownerID == uuid.Nil {
+		return nil, ErrInvalidData
 	}
-	if strings.TrimSpace(description) == "" {
-		return nil, ErrInvalidTaskDescription
+
+	if b.groupID.IsSome() && b.groupID.MustGet() == uuid.Nil {
+		return nil, ErrInvalidData
 	}
-	if !priority.Valid() {
-		return nil, ErrInvalidTaskPriority
+
+	if b.title == "" {
+		return nil, ErrInvalidData
+	}
+
+	if b.description == "" {
+		return nil, ErrInvalidData
+	}
+
+	if !b.priority.Valid() {
+		return nil, ErrInvalidData
+	}
+
+	if !b.icon.Valid() {
+		return nil, ErrInvalidData
 	}
 
 	currentTime := time.Now()
+
+	deadline, ok := b.deadline.Get()
+	if ok && deadline.Before(currentTime) {
+		return nil, ErrInvalidData
+	}
+
+	for _, notifyAt := range b.notifyAt {
+		if notifyAt.Before(currentTime) {
+			return nil, ErrInvalidData
+		}
+		if ok && deadline.Before(notifyAt) {
+			return nil, ErrInvalidData
+		}
+	}
+
 	return &Task{
 		ID:          uuid.New(),
-		OwnerID:     ownerID,
-		Title:       title,
-		Description: description,
-		Priority:    priority,
+		OwnerID:     b.ownerID,
+		GroupID:     b.groupID,
+		Title:       b.title,
+		Description: b.description,
+		Location:    b.location,
+		IsFavorite:  b.isFavorite,
+		Priority:    b.priority,
+		Icon:        b.icon,
 		Status:      StatusPending,
+		Deadline:    b.deadline,
+		NotifyAt:    b.notifyAt,
 		CreatedAt:   currentTime,
 		UpdatedAt:   currentTime,
 	}, nil
+}
+
+func NewBuilder() *Builder {
+	return &Builder{}
 }
