@@ -255,7 +255,12 @@ func main() {
 	}
 
 	wg := &sync.WaitGroup{}
-	wg.Add(3)
+	wg.Add(func() int {
+		if utility.GetEnv("ENV", "dev") == "dev" {
+			return 3
+		}
+		return 2
+	}())
 
 	go func() {
 		if err := server.Serve(); err != nil {
@@ -266,14 +271,16 @@ func main() {
 		wg.Done()
 	}()
 
-	go func() {
-		if err := http.ListenAndServe(utility.GetEnv("PPROF_SERVER_ADDRESS", ":8081"), nil); err != nil {
-			logger.Error().
-				Err(err).
-				Msg("pprof http.Server")
-		}
-		wg.Done()
-	}()
+	if utility.GetEnv("ENV", "dev") == "dev" {
+		go func() {
+			if err := http.ListenAndServe(utility.GetEnv("PPROF_SERVER_ADDRESS", ":8081"), nil); err != nil {
+				logger.Error().
+					Err(err).
+					Msg("pprof http.Server")
+			}
+			wg.Done()
+		}()
+	}
 
 	go func() {
 		if err := deletedUserConsumer.Handle(ctx); err != nil {
