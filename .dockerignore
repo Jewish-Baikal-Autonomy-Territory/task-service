@@ -1,0 +1,17 @@
+.github
+deployments
+gen/openapiv2
+internal/infrastructure/postgres/migrations
+internal/infrastructure/postgres/queries
+proto
+.editorconfig
+.gitattributes
+.gitignore
+.golangci.yml
+.mockery.yml
+buf.gen.yaml
+commitlint.config.mjs
+compose.yml
+LICENSE
+README.md
+sqlc.yml
