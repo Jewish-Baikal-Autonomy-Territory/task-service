@@ -149,7 +149,7 @@ jobs:
       contents: 'read'
       packages: 'write'
     needs: [ 'config', 'test' ]
-    if: github.event == 'push' && github.ref == 'refs/heads/main
+    if: github.event == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: 'Clone repository'
         uses: 'actions/checkout@v6'
