@@ -146,7 +146,7 @@ jobs:
   push-registry:
     runs-on: ${{ needs.config.outputs.linux-runner-image }}
     permissions:
-      contents: 'read'
+      contents: 'write'
       packages: 'write'
     needs: [ 'config', 'test' ]
     if: github.event_name == 'push'
