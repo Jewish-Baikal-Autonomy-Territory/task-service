@@ -120,8 +120,8 @@ func main() {
 		ctx,
 		postgres.PoolOptions{
 			ConnectionString:      utility.GetEnv("PG_CONNECTION_STRING", ""),
-			MinConnections:        int32(utility.GetEnvInt("PG_MIN_CONNECTIONS", 10)),
-			MaxConnections:        int32(utility.GetEnvInt("PG_MAX_CONNECTIONS", 100)),
+			MinConnections:        int32(utility.GetEnvUInt("PG_MIN_CONNECTIONS", 10)),
+			MaxConnections:        int32(utility.GetEnvUInt("PG_MAX_CONNECTIONS", 100)),
 			MaxIdleConnectionTime: utility.GetEnvDuration("PG_MAX_IDLE_CONNECTION_TIME", 30*time.Minute),
 		},
 	)
@@ -223,7 +223,7 @@ func main() {
 		Handler:                   grpcHandler,
 		MeterProvider:             metric.NewMeterProvider().Meter(utility.GetEnv("METER_PROVIDER_NAME", "")),
 		Addr:                      utility.GetEnv("SERVER_ADDRESS", ":8080"),
-		MaxConnectionLimit:        uint32(utility.GetEnvInt("SERVER_MAX_CONNECTION_LIMIT", 2000)),
+		MaxConnectionLimit:        uint32(utility.GetEnvUInt("SERVER_MAX_CONNECTION_LIMIT", 2000)),
 		MaxConnectionIdle:         utility.GetEnvDuration("SERVER_MAX_CONNECTION_IDLE", 5*time.Minute),
 		PingHeartbeat:             utility.GetEnvDuration("SERVER_PING_HEARDBEAT", 2*time.Minute),
 		PingResponseTime:          utility.GetEnvDuration("SERVER_PING_RESPONSE_TIME", 20*time.Second),
