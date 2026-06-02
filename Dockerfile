@@ -1,5 +1,7 @@
 FROM golang:1.26.3 AS build
 
+LABEL org.opencontainers.image.source=https://github.com/jewish-baikal-autonomy-territory/task-service
+
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
