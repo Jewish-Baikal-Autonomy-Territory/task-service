@@ -14,20 +14,20 @@ func GetEnv(key, fallback string) string {
 	return fallback
 }
 
-func GetEnvInt(key string, fallback int) int {
+func GetEnvInt(key string, fallback int32) int32 {
 	if value, ok := os.LookupEnv(key); ok {
-		if i, err := strconv.Atoi(value); err == nil {
-			return i
+		if i, err := strconv.ParseInt(value, 10, 32); err == nil {
+			return int32(i)
 		}
 	}
 
 	return fallback
 }
 
-func GetEnvUInt(key string, fallback uint64) uint64 {
+func GetEnvUInt(key string, fallback uint32) uint32 {
 	if value, ok := os.LookupEnv(key); ok {
-		if u, err := strconv.ParseUint(value, 10, 64); err == nil {
-			return u
+		if u, err := strconv.ParseUint(value, 10, 32); err == nil {
+			return uint32(u)
 		}
 	}
 
