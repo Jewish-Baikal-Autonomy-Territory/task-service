@@ -1,4 +1,5 @@
 version: 'v2'
+name: 'buf.build/jewish-baikal-autonomy-territory/task-service'
 deps:
   - 'buf.build/grpc-ecosystem/grpc-gateway'
   - 'buf.build/googleapis/googleapis'
