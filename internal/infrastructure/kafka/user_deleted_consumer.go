@@ -146,6 +146,10 @@ func NewUserDeletedConsumer(h appevent.DeleteUserTasksHandler, opts UserDeletedC
 		return nil, errors.New("handler is missing")
 	}
 
+	if err := opts.Validate(); err != nil {
+		return nil, fmt.Errorf("validate options: %w", err)
+	}
+
 	validator, err := protovalidate.New(protovalidate.WithFailFast())
 	if err != nil {
 		return nil, errors.New("validator is invalid")
