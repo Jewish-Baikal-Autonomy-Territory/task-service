@@ -33,7 +33,6 @@ func (c *UserDeletedConsumer) Handle(ctx context.Context) error {
 			c.logger.Error().
 				Str("UserDeletedConsumer", "Handle").
 				Err(err).
-				Timestamp().
 				Msg("error reading message")
 			continue
 		}
@@ -43,7 +42,6 @@ func (c *UserDeletedConsumer) Handle(ctx context.Context) error {
 			c.logger.Error().
 				Str("UserDeletedConsumer", "Handle").
 				Err(err).
-				Timestamp().
 				Msg("error unmarshalling message")
 			_ = c.reader.CommitMessages(ctx, msg)
 			continue
@@ -53,7 +51,6 @@ func (c *UserDeletedConsumer) Handle(ctx context.Context) error {
 			c.logger.Error().
 				Str("UserDeletedConsumer", "Handle").
 				Err(err).
-				Timestamp().
 				Msg("error validating user deleted event")
 			_ = c.reader.CommitMessages(ctx, msg)
 			continue
@@ -64,7 +61,6 @@ func (c *UserDeletedConsumer) Handle(ctx context.Context) error {
 			c.logger.Error().
 				Str("UserDeletedConsumer", "Handle").
 				Err(err).
-				Timestamp().
 				Msg("error parsing user id")
 			_ = c.reader.CommitMessages(ctx, msg)
 			continue
@@ -74,7 +70,6 @@ func (c *UserDeletedConsumer) Handle(ctx context.Context) error {
 			c.logger.Error().
 				Str("UserDeletedConsumer", "Handle").
 				Err(err).
-				Timestamp().
 				Msg("error processing user deleted event")
 			continue
 		}
@@ -83,7 +78,6 @@ func (c *UserDeletedConsumer) Handle(ctx context.Context) error {
 			c.logger.Error().
 				Str("UserDeletedConsumer", "Handle").
 				Err(err).
-				Timestamp().
 				Msg("error committing user deleted event")
 		}
 	}
