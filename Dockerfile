@@ -1,4 +1,4 @@
-FROM golang:1.26.3 AS build
+FROM golang:1.26.4 AS build
 
 LABEL org.opencontainers.image.source=https://github.com/jewish-baikal-autonomy-territory/task-service
 
