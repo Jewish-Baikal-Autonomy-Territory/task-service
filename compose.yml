@@ -5,7 +5,7 @@ services:
       context: '.'
       target: 'prod'
     environment:
-      ENV: 'dev'
+      ENV: 'prod'
       TASK_SERVICE_NAME: 'task.service'
       TASK_SERVICE_VERSION: 'v1'
 
@@ -14,7 +14,7 @@ services:
 
       METRICS_EXPORTER_ADDRESS: 'otlp-collector:4317'
       METRICS_EXPORTER_TIMEOUT: '5s'
-      METRICS_EXPORTER_INTERVAL: '15s'
+      METRICS_EXPORTER_READER_INTERVAL: '15s'
       METRICS_EXPORTER_READER_TIMEOUT: '5s'
 
       LOGGER_EXPORTER_ADDRESS: 'otlp-collector:4317'
@@ -28,13 +28,31 @@ services:
       SERVER_ADDR: ':8080'
 
       EVENT_BUS_BROKERS: 'event-bus:9092'
-      EVENT_BUS_GROUP_ID: 'task-service-user-deleted'
-      EVENT_BUS_TOPIC: 'jbat.gap.user.deleted'
-      EVENT_BUS_MIN_BYTES: 10,
-      EVENT_BUS_MAX_BYTES: 1000,
-      EVENT_BUS_MAX_WAIT: '20ms'
-      EVENT_BUS_HEARTBEAT_INTERVAL: '3s'
-      EVENT_BUS_SESSION_TIME: '15m'
+      TASK_USER_DELETED_CONSUMER_GROUP_ID: 'task-service-user-deleted'
+      TASK_USER_DELETED_CONSUMER_TOPIC: 'jbat.tap.user.deleted'
+      TASK_USER_DELETED_CONSUMER_MIN_BYTES: 10,
+      TASK_USER_DELETED_CONSUMER_MAX_BYTES: 1000,
+      TASK_USER_DELETED_CONSUMER_MAX_WAIT: '20ms'
+      TASK_USER_DELETED_CONSUMER_HEARTBEAT_INTERVAL: '3s'
+      TASK_USER_DELETED_CONSUMER_SESSION_TIME: '15m'
+
+      TASK_NOTIFICATION_TOPIC: 'jbat.tap.task.notification'
+      TASK_NOTIFICATION_PUBLISHER_BATCH_SIZE: 10
+      TASK_NOTIFICATION_PUBLISHER_BATCH_BYTES: 1000000,
+      TASK_NOTIFICATION_PUBLISHER_BATCH_TIMEOUT: '20ms'
+      TASK_NOTIFICATION_PUBLISHER_RETRY_ATTEMPTS: 3
+
+      TASK_CREATED_PUBLISHER_TOPIC: 'jbat.tap.analytics.task.created'
+      TASK_CREATED_PUBLISHER_BATCH_SIZE: 10
+      TASK_CREATED_PUBLISHER_BATCH_BYTES: 1000000,
+      TASK_CREATED_PUBLISHER_BATCH_TIMEOUT: '20ms'
+      TASK_CREATE_PUBLISHER_RETRY_ATTEMPTS: 3
+
+      TASK_COMPLETE_PUBLISHER_TOPIC: 'jbat.tap.analytics.task.completed'
+      TASK_COMPLETE_PUBLISHER_BATCH_SIZE: 10
+      TASK_COMPLETE_PUBLISHER_BATCH_BYTES: 1000000
+      TASK_COMPLETE_PUBLISHER_BATCH_TIMEOUT: '20ms'
+      TASK_COMPLETE_PUBLISHER_RETRY_ATTEMPTS: 3
     ports:
       - '8080:8080'
       - '8081:8081'
@@ -105,7 +123,28 @@ services:
       /opt/kafka/bin/kafka-topics.sh --create
       --if-not-exists
       --bootstrap-server event-bus:9092
-      --topic jbat.gap.user.deleted
+      --topic jbat.tap.user.deleted
+      --partitions 3
+      --replication-factor 1
+      &&
+      /opt/kafka/bin/kafka-topics.sh --create
+      --if-not-exists
+      --bootstrap-server event-bus:9092
+      --topic jbat.tap.task.notification
+      --partitions 3
+      --replication-factor 1
+      &&
+      /opt/kafka/bin/kafka-topics.sh --create
+      --if-not-exists
+      --bootstrap-server event-bus:9092
+      --topic jbat.tap.analytics.task.created
+      --partitions 3
+      --replication-factor 1
+      &&
+      /opt/kafka/bin/kafka-topics.sh --create
+      --if-not-exists
+      --bootstrap-server event-bus:9092
+      --topic jbat.tap.task.complete
       --partitions 3
       --replication-factor 1
     networks:
