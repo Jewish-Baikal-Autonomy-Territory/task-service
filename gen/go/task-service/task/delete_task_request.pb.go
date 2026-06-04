@@ -72,12 +72,11 @@ var File_task_delete_task_request_proto protoreflect.FileDescriptor
 
 const file_task_delete_task_request_proto_rawDesc = "" +
 	"\n" +
-	"\x1etask/delete_task_request.proto\x12\tjbat.task\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1bbuf/validate/validate.proto\"\xde\x02\n" +
+	"\x1etask/delete_task_request.proto\x12\x10jbat.tap.v1.task\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1bbuf/validate/validate.proto\"\xde\x02\n" +
 	"\x11DeleteTaskRequest\x12\xcc\x01\n" +
 	"\x02id\x18\x01 \x01(\tB\xbb\x01\x92A\xa9\x01*\x02id2\x1bUUID of the task to delete.J&\"123e4567-e89b-12d3-a456-426614174000\"\x8a\x01M^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\b\xc8\x01\x01r\x03\xb0\x01\x01R\x02id:z\x92Aw\n" +
-	"F*\x11DeleteTaskRequest2,Transfer information about a task to delete.\xd2\x01\x02id2-{\"id\":\"123e4567-e89b-12d3-a456-426614174000\"}B\x84\x01\n" +
-	"\rcom.jbat.taskB\x16DeleteTaskRequestProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
+	"F*\x11DeleteTaskRequest2,Transfer information about a task to delete.\xd2\x01\x02id2-{\"id\":\"123e4567-e89b-12d3-a456-426614174000\"}B\xaa\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\x16DeleteTaskRequestProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
 
 var (
 	file_task_delete_task_request_proto_rawDescOnce sync.Once
@@ -93,7 +92,7 @@ func file_task_delete_task_request_proto_rawDescGZIP() []byte {
 
 var file_task_delete_task_request_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_task_delete_task_request_proto_goTypes = []any{
-	(*DeleteTaskRequest)(nil), // 0: jbat.task.DeleteTaskRequest
+	(*DeleteTaskRequest)(nil), // 0: jbat.tap.v1.task.DeleteTaskRequest
 }
 var file_task_delete_task_request_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

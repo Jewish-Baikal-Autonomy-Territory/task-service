@@ -1,6 +1,6 @@
 edition = "2023";
 
-package jbat.task;
+package jbat.tap.v1.task;
 
 import "task/geo_filter.proto";
 import "task/task_priority.proto";

@@ -20,14 +20,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	TaskService_GetTask_FullMethodName      = "/jbat.task.TaskService/GetTask"
-	TaskService_SearchTasks_FullMethodName  = "/jbat.task.TaskService/SearchTasks"
-	TaskService_CompleteTask_FullMethodName = "/jbat.task.TaskService/CompleteTask"
-	TaskService_CreateTask_FullMethodName   = "/jbat.task.TaskService/CreateTask"
-	TaskService_UpdateTask_FullMethodName   = "/jbat.task.TaskService/UpdateTask"
-	TaskService_DeleteTask_FullMethodName   = "/jbat.task.TaskService/DeleteTask"
-	TaskService_RestoreTask_FullMethodName  = "/jbat.task.TaskService/RestoreTask"
-	TaskService_ListDeleted_FullMethodName  = "/jbat.task.TaskService/ListDeleted"
+	TaskService_GetTask_FullMethodName      = "/jbat.tap.v1.task.TaskService/GetTask"
+	TaskService_SearchTasks_FullMethodName  = "/jbat.tap.v1.task.TaskService/SearchTasks"
+	TaskService_CompleteTask_FullMethodName = "/jbat.tap.v1.task.TaskService/CompleteTask"
+	TaskService_CreateTask_FullMethodName   = "/jbat.tap.v1.task.TaskService/CreateTask"
+	TaskService_UpdateTask_FullMethodName   = "/jbat.tap.v1.task.TaskService/UpdateTask"
+	TaskService_DeleteTask_FullMethodName   = "/jbat.tap.v1.task.TaskService/DeleteTask"
+	TaskService_RestoreTask_FullMethodName  = "/jbat.tap.v1.task.TaskService/RestoreTask"
+	TaskService_ListDeleted_FullMethodName  = "/jbat.tap.v1.task.TaskService/ListDeleted"
 )
 
 // TaskServiceClient is the client API for TaskService service.
@@ -347,7 +347,7 @@ func _TaskService_ListDeleted_Handler(srv interface{}, ctx context.Context, dec 
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var TaskService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "jbat.task.TaskService",
+	ServiceName: "jbat.tap.v1.task.TaskService",
 	HandlerType: (*TaskServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{

@@ -80,13 +80,12 @@ var File_task_search_tasks_response_proto protoreflect.FileDescriptor
 
 const file_task_search_tasks_response_proto_rawDesc = "" +
 	"\n" +
-	" task/search_tasks_response.proto\x12\tjbat.task\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xec\x04\n" +
+	" task/search_tasks_response.proto\x12\x10jbat.tap.v1.task\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xec\x04\n" +
 	"\x13SearchTasksResponse\x12\x8b\x01\n" +
 	"\x03ids\x18\x01 \x03(\tBy\x92As*\x03ids23Array of UUIDs that representing the search result.J([\"123e4567-e89b-12d3-a456-426614174001\"]\xd2\x01\x04true\xa2\x02\x05array\xe0A\x02R\x03ids\x12\x83\x02\n" +
 	"\rnext_sync_key\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampB\xc0\x01\x92A\xb9\x01*\rnext_sync_key2}Timestamp of the last retrieved task from the ids array. Client should pass this value in the next request to find new tasks.J\x16\"2024-12-31T23:59:59Z\"\xd2\x01\x04true\xa2\x02\tdate-time\xe0A\x02R\rnext_sync_key:\xc0\x01\x92A\xbc\x01\n" +
-	"a*\x13SearchTasksResponse24Transfer the information about tasks with their ids.\xd2\x01\x03ids\xd2\x01\rnext_sync_key2W{\"ids\":[\"123e4567-e89b-12d3-a456-426614174001\"],\"next_sync_key\":\"2024-12-31T23:59:59Z\"}B\x81\x01\n" +
-	"\rcom.jbat.taskB\x18SearchTasksResponseProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Taskb\beditionsp\xe8\a"
+	"a*\x13SearchTasksResponse24Transfer the information about tasks with their ids.\xd2\x01\x03ids\xd2\x01\rnext_sync_key2W{\"ids\":[\"123e4567-e89b-12d3-a456-426614174001\"],\"next_sync_key\":\"2024-12-31T23:59:59Z\"}B\xa7\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\x18SearchTasksResponseProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Taskb\beditionsp\xe8\a"
 
 var (
 	file_task_search_tasks_response_proto_rawDescOnce sync.Once
@@ -102,11 +101,11 @@ func file_task_search_tasks_response_proto_rawDescGZIP() []byte {
 
 var file_task_search_tasks_response_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_task_search_tasks_response_proto_goTypes = []any{
-	(*SearchTasksResponse)(nil),   // 0: jbat.task.SearchTasksResponse
+	(*SearchTasksResponse)(nil),   // 0: jbat.tap.v1.task.SearchTasksResponse
 	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
 }
 var file_task_search_tasks_response_proto_depIdxs = []int32{
-	1, // 0: jbat.task.SearchTasksResponse.next_sync_key:type_name -> google.protobuf.Timestamp
+	1, // 0: jbat.tap.v1.task.SearchTasksResponse.next_sync_key:type_name -> google.protobuf.Timestamp
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

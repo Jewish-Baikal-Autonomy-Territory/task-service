@@ -1,6 +1,6 @@
 edition = "2023";
 
-package jbat.event;
+package jbat.tap.v1.event.system;
 
 import "buf/validate/validate.proto";
 

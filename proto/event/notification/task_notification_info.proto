@@ -1,0 +1,26 @@
+edition = "2023";
+
+package jbat.tap.v1.event.notification;
+
+import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+
+option features.field_presence = EXPLICIT;
+
+message TaskNotificationInfo {
+  string task_id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  string user_id = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  string title = 3 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.min_len = 1,
+    (buf.validate.field).string.max_len = 200
+  ];
+}

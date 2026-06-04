@@ -27,9 +27,9 @@ var File_task_service_proto protoreflect.FileDescriptor
 
 const file_task_service_proto_rawDesc = "" +
 	"\n" +
-	"\x12task/service.proto\x12\tjbat.task\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1btask/get_task_request.proto\x1a\x1ctask/get_task_response.proto\x1a task/complete_task_request.proto\x1a\x1etask/create_task_request.proto\x1a\x1ftask/create_task_response.proto\x1a\x1etask/update_task_request.proto\x1a task/search_tasks_response.proto\x1a\x1etask/delete_task_request.proto\x1a\x1ftask/restore_task_request.proto\x1a\x16task/task_filter.proto\x1a\x1ftask/delete_task_response.proto\x1a\x1ftask/list_deleted_request.proto\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto2\xe5#\n" +
-	"\vTaskService\x12\xe7\x03\n" +
-	"\aGetTask\x12\x19.jbat.task.GetTaskRequest\x1a\x1a.jbat.task.GetTaskResponse\"\xa4\x03\x92A\x87\x03\n" +
+	"\x12task/service.proto\x12\x10jbat.tap.v1.task\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1btask/get_task_request.proto\x1a\x1ctask/get_task_response.proto\x1a task/complete_task_request.proto\x1a\x1etask/create_task_request.proto\x1a\x1ftask/create_task_response.proto\x1a\x1etask/update_task_request.proto\x1a task/search_tasks_response.proto\x1a\x1etask/delete_task_request.proto\x1a\x1ftask/restore_task_request.proto\x1a\x16task/task_filter.proto\x1a\x1ftask/delete_task_response.proto\x1a\x1ftask/list_deleted_request.proto\x1a\x1cgoogle/api/annotations.proto\x1a.protoc-gen-openapiv2/options/annotations.proto2\xc0$\n" +
+	"\vTaskService\x12\xf5\x03\n" +
+	"\aGetTask\x12 .jbat.tap.v1.task.GetTaskRequest\x1a!.jbat.tap.v1.task.GetTaskResponse\"\xa4\x03\x92A\x87\x03\n" +
 	"\x04Task\x124Provides the ability to get task by id and owner id.\x1a.Involves the process of task owner validation.*\bget_taskJd\n" +
 	"\x03200\x12]\n" +
 	";OK - the task indicated by id that contained in the system.\x12\x1e\n" +
@@ -39,8 +39,8 @@ const file_task_service_proto_rawDesc = "" +
 	"\x14\x1a\x12.google.rpc.StatusJZ\n" +
 	"\x03503\x12S\n" +
 	"9Service Unavailable - service is temporarily unavailable.\x12\x16\n" +
-	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x13\x12\x11/api/v1/task/{id}\x12\x82\x05\n" +
-	"\vSearchTasks\x12\x15.jbat.task.TaskFilter\x1a\x1e.jbat.task.SearchTasksResponse\"\xbb\x04\x92A\xa2\x04\n" +
+	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x13\x12\x11/api/v1/task/{id}\x12\x90\x05\n" +
+	"\vSearchTasks\x12\x1c.jbat.tap.v1.task.TaskFilter\x1a%.jbat.tap.v1.task.SearchTasksResponse\"\xbb\x04\x92A\xa2\x04\n" +
 	"\x04Task\x12:Provides the ability to search specific tasks with filter.\x1aCInvolves the process of filtering tasks based on passed conditions.*\fsearch_tasksJl\n" +
 	"\x03200\x12e\n" +
 	"?OK - the tasks that was successfully retrieved from the system.\x12\"\n" +
@@ -53,8 +53,8 @@ const file_task_service_proto_rawDesc = "" +
 	"\x14\x1a\x12.google.rpc.StatusJZ\n" +
 	"\x03503\x12S\n" +
 	"9Service Unavailable - service is temporarily unavailable.\x12\x16\n" +
-	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x0f\x12\r/api/v1/tasks\x12\xed\x04\n" +
-	"\fCompleteTask\x12\x1e.jbat.task.CompleteTaskRequest\x1a\x16.google.protobuf.Empty\"\xa4\x04\x92A\xfb\x03\n" +
+	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x0f\x12\r/api/v1/tasks\x12\xf4\x04\n" +
+	"\fCompleteTask\x12%.jbat.tap.v1.task.CompleteTaskRequest\x1a\x16.google.protobuf.Empty\"\xa4\x04\x92A\xfb\x03\n" +
 	"\x04Task\x12/Provides the ability to mark task as completed.\x1aGInvolves the process of saving the new state of the task in the system.*\rcomplete_taskJN\n" +
 	"\x03200\x12G\n" +
 	")OK - the task was successfully completed.\x12\x1a\n" +
@@ -67,18 +67,18 @@ const file_task_service_proto_rawDesc = "" +
 	"\x14\x1a\x12.google.rpc.StatusJZ\n" +
 	"\x03503\x12S\n" +
 	"9Service Unavailable - service is temporarily unavailable.\x12\x16\n" +
-	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/task/{id}:complete\x12\xa2\x03\n" +
+	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x1f:\x01*\"\x1a/api/v1/task/{id}:complete\x12\xb0\x03\n" +
 	"\n" +
-	"CreateTask\x12\x1c.jbat.task.CreateTaskRequest\x1a\x1d.jbat.task.CreateTaskResponse\"\xd6\x02\x92A\xbb\x02\n" +
+	"CreateTask\x12#.jbat.tap.v1.task.CreateTaskRequest\x1a$.jbat.tap.v1.task.CreateTaskResponse\"\xd6\x02\x92A\xbb\x02\n" +
 	"\x04Task\x126Provides the ability to create new task in the system.\x1a8Involves the process of creating new task in the system.*\vcreate_taskJX\n" +
 	"\x03201\x12Q\n" +
 	",Created - the task was successfully created.\x12!\n" +
 	"\x1f\x1a\x1d.jbat.task.CreateTaskResponseJZ\n" +
 	"\x03503\x12S\n" +
 	"9Service Unavailable - service is temporarily unavailable.\x12\x16\n" +
-	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x11:\x01*\"\f/api/v1/task\x12\xfd\x03\n" +
+	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x11:\x01*\"\f/api/v1/task\x12\x84\x04\n" +
 	"\n" +
-	"UpdateTask\x12\x1c.jbat.task.UpdateTaskRequest\x1a\x16.google.protobuf.Empty\"\xb8\x03\x92A\x9d\x03\n" +
+	"UpdateTask\x12#.jbat.tap.v1.task.UpdateTaskRequest\x1a\x16.google.protobuf.Empty\"\xb8\x03\x92A\x9d\x03\n" +
 	"\x04Task\x12JProvides the ability to update task with information passed by the client.\x1a?Involves the process of updating the task with new information.*\vupdate_taskJL\n" +
 	"\x03200\x12E\n" +
 	"'OK - the task was successfully updated.\x12\x1a\n" +
@@ -88,9 +88,9 @@ const file_task_service_proto_rawDesc = "" +
 	"\x14\x1a\x12.google.rpc.StatusJZ\n" +
 	"\x03503\x12S\n" +
 	"9Service Unavailable - service is temporarily unavailable.\x12\x16\n" +
-	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x11:\x01*2\f/api/v1/task\x12\xe4\x05\n" +
+	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x11:\x01*2\f/api/v1/task\x12\xf2\x05\n" +
 	"\n" +
-	"DeleteTask\x12\x1c.jbat.task.DeleteTaskRequest\x1a\x1d.jbat.task.DeleteTaskResponse\"\x98\x05\x92A\xfb\x04\n" +
+	"DeleteTask\x12#.jbat.tap.v1.task.DeleteTaskRequest\x1a$.jbat.tap.v1.task.DeleteTaskResponse\"\x98\x05\x92A\xfb\x04\n" +
 	"\x04Task\x12bProvides the ability to delete task from the system which can be restores in given amount of time.\x1a\x84\x01Involves the process of changing the task state to pending delete which then will be permanently deleted after given amount of time.*\vdelete_taskJY\n" +
 	"\x03202\x12R\n" +
 	"-Accepted - the task is accepted for deletion.\x12!\n" +
@@ -103,8 +103,8 @@ const file_task_service_proto_rawDesc = "" +
 	"\x14\x1a\x12.google.rpc.StatusJZ\n" +
 	"\x03503\x12S\n" +
 	"9Service Unavailable - service is temporarily unavailable.\x12\x16\n" +
-	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x13*\x11/api/v1/task/{id}\x12\x96\x04\n" +
-	"\vRestoreTask\x12\x1d.jbat.task.RestoreTaskRequest\x1a\x16.google.protobuf.Empty\"\xcf\x03\x92A\xa7\x03\n" +
+	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x13*\x11/api/v1/task/{id}\x12\x9d\x04\n" +
+	"\vRestoreTask\x12$.jbat.tap.v1.task.RestoreTaskRequest\x1a\x16.google.protobuf.Empty\"\xcf\x03\x92A\xa7\x03\n" +
 	"\x04Task\x12.Provides the ability to restore deleted tasks.\x1aUInvolves the process of task restoration if given amount of time has not been passed.*\frestore_taskJ[\n" +
 	"\x03200\x12T\n" +
 	"6OK - the task was successfully restored in the system.\x12\x1a\n" +
@@ -114,8 +114,8 @@ const file_task_service_proto_rawDesc = "" +
 	"\x14\x1a\x12.google.rpc.StatusJZ\n" +
 	"\x03503\x12S\n" +
 	"9Service Unavailable - service is temporarily unavailable.\x12\x16\n" +
-	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/task/{id}:restore\x12\x9d\x04\n" +
-	"\vListDeleted\x12\x1d.jbat.task.ListDeletedRequest\x1a\x1e.jbat.task.SearchTasksResponse\"\xce\x03\x92A\xad\x03\n" +
+	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x1e:\x01*\"\x19/api/v1/task/{id}:restore\x12\xab\x04\n" +
+	"\vListDeleted\x12$.jbat.tap.v1.task.ListDeletedRequest\x1a%.jbat.tap.v1.task.SearchTasksResponse\"\xce\x03\x92A\xad\x03\n" +
 	"\x04Task\x12.Provides the ability to get deleted tasks ids.\x1aEInvolves the process of task retrieval and passing ids to the caller.*\flist_deletedJg\n" +
 	"\x03200\x12`\n" +
 	":OK - the deleted tasks was found and passed to the client.\x12\"\n" +
@@ -126,7 +126,7 @@ const file_task_service_proto_rawDesc = "" +
 	"\x03503\x12S\n" +
 	"9Service Unavailable - service is temporarily unavailable.\x12\x16\n" +
 	"\x14\x1a\x12.google.rpc.Status\x82\xd3\xe4\x93\x02\x17\x12\x15/api/v1/tasks/deleted\x1a2\x92A/\n" +
-	"\x04Task\x12'Internal service for task manipulation.B\xdc\x06\x92A\xe3\x05\x12\x84\x01\n" +
+	"\x04Task\x12'Internal service for task manipulation.B\x82\a\x92A\xe3\x05\x12\x84\x01\n" +
 	"\x10Task Service API\"&\n" +
 	"\x0eKirill Morozov\x1a\x14kirillsm05@gmail.com*A\n" +
 	"\x12Apache License 2.0\x12+https://www.apache.org/licenses/LICENSE-2.02\x051.0.0\x1a\x13geo-test.dellyis.ru*\x01\x022\x10application/json:\x10application/jsonRK\n" +
@@ -151,41 +151,40 @@ const file_task_service_proto_rawDesc = "" +
 	"\n" +
 	"BearerAuth\x12\x00j/\n" +
 	"\x04Task\x12'Internal service for task manipulation.\n" +
-	"\rcom.jbat.taskB\fServiceProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Taskb\beditionsp\xe8\a"
+	"\x14com.jbat.tap.v1.taskB\fServiceProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Taskb\beditionsp\xe8\a"
 
 var file_task_service_proto_goTypes = []any{
-	(*GetTaskRequest)(nil),      // 0: jbat.task.GetTaskRequest
-	(*TaskFilter)(nil),          // 1: jbat.task.TaskFilter
-	(*CompleteTaskRequest)(nil), // 2: jbat.task.CompleteTaskRequest
-	(*CreateTaskRequest)(nil),   // 3: jbat.task.CreateTaskRequest
-	(*UpdateTaskRequest)(nil),   // 4: jbat.task.UpdateTaskRequest
-	(*DeleteTaskRequest)(nil),   // 5: jbat.task.DeleteTaskRequest
-	(*RestoreTaskRequest)(nil),  // 6: jbat.task.RestoreTaskRequest
-	(*ListDeletedRequest)(nil),  // 7: jbat.task.ListDeletedRequest
-	(*GetTaskResponse)(nil),     // 8: jbat.task.GetTaskResponse
-	(*SearchTasksResponse)(nil), // 9: jbat.task.SearchTasksResponse
+	(*GetTaskRequest)(nil),      // 0: jbat.tap.v1.task.GetTaskRequest
+	(*TaskFilter)(nil),          // 1: jbat.tap.v1.task.TaskFilter
+	(*CompleteTaskRequest)(nil), // 2: jbat.tap.v1.task.CompleteTaskRequest
+	(*CreateTaskRequest)(nil),   // 3: jbat.tap.v1.task.CreateTaskRequest
+	(*UpdateTaskRequest)(nil),   // 4: jbat.tap.v1.task.UpdateTaskRequest
+	(*DeleteTaskRequest)(nil),   // 5: jbat.tap.v1.task.DeleteTaskRequest
+	(*RestoreTaskRequest)(nil),  // 6: jbat.tap.v1.task.RestoreTaskRequest
+	(*ListDeletedRequest)(nil),  // 7: jbat.tap.v1.task.ListDeletedRequest
+	(*GetTaskResponse)(nil),     // 8: jbat.tap.v1.task.GetTaskResponse
+	(*SearchTasksResponse)(nil), // 9: jbat.tap.v1.task.SearchTasksResponse
 	(*emptypb.Empty)(nil),       // 10: google.protobuf.Empty
-	(*CreateTaskResponse)(nil),  // 11: jbat.task.CreateTaskResponse
-	(*DeleteTaskResponse)(nil),  // 12: jbat.task.DeleteTaskResponse
+	(*CreateTaskResponse)(nil),  // 11: jbat.tap.v1.task.CreateTaskResponse
+	(*DeleteTaskResponse)(nil),  // 12: jbat.tap.v1.task.DeleteTaskResponse
 }
 var file_task_service_proto_depIdxs = []int32{
-	0,  // 0: jbat.task.TaskService.GetTask:input_type -> jbat.task.GetTaskRequest
-	1,  // 1: jbat.task.TaskService.SearchTasks:input_type -> jbat.task.TaskFilter
-	2,  // 2: jbat.task.TaskService.CompleteTask:input_type -> jbat.task.CompleteTaskRequest
-	3,  // 3: jbat.task.TaskService.CreateTask:input_type -> jbat.task.CreateTaskRequest
-	4,  // 4: jbat.task.TaskService.UpdateTask:input_type -> jbat.task.UpdateTaskRequest
-	5,  // 5: jbat.task.TaskService.DeleteTask:input_type -> jbat.task.DeleteTaskRequest
-	6,  // 6: jbat.task.TaskService.RestoreTask:input_type -> jbat.task.RestoreTaskRequest
-	7,  // 7: jbat.task.TaskService.ListDeleted:input_type -> jbat.task.ListDeletedRequest
-	8,  // 8: jbat.task.TaskService.GetTask:output_type -> jbat.task.GetTaskResponse
-	9,  // 9: jbat.task.TaskService.SearchTasks:output_type -> jbat.task.SearchTasksResponse
-	10, // 10: jbat.task.TaskService.CompleteTask:output_type -> google.protobuf.Empty
-	11, // 11: jbat.task.TaskService.CreateTask:output_type -> jbat.task.CreateTaskResponse
-	10, // 12: jbat.task.TaskService.UpdateTask:output_type -> google.protobuf.Empty
-	12, // 13: jbat.task.TaskService.DeleteTask:output_type -> jbat.task.DeleteTaskResponse
-	10, // 14: jbat.task.TaskService.RestoreTask:output_type -> google.protobuf.Empty
-	9,  // 15: jbat.task.TaskService.ListDeleted:output_type -> jbat.task.SearchTasksResponse
+	0,  // 0: jbat.tap.v1.task.TaskService.GetTask:input_type -> jbat.tap.v1.task.GetTaskRequest
+	1,  // 1: jbat.tap.v1.task.TaskService.SearchTasks:input_type -> jbat.tap.v1.task.TaskFilter
+	2,  // 2: jbat.tap.v1.task.TaskService.CompleteTask:input_type -> jbat.tap.v1.task.CompleteTaskRequest
+	3,  // 3: jbat.tap.v1.task.TaskService.CreateTask:input_type -> jbat.tap.v1.task.CreateTaskRequest
+	4,  // 4: jbat.tap.v1.task.TaskService.UpdateTask:input_type -> jbat.tap.v1.task.UpdateTaskRequest
+	5,  // 5: jbat.tap.v1.task.TaskService.DeleteTask:input_type -> jbat.tap.v1.task.DeleteTaskRequest
+	6,  // 6: jbat.tap.v1.task.TaskService.RestoreTask:input_type -> jbat.tap.v1.task.RestoreTaskRequest
+	7,  // 7: jbat.tap.v1.task.TaskService.ListDeleted:input_type -> jbat.tap.v1.task.ListDeletedRequest
+	8,  // 8: jbat.tap.v1.task.TaskService.GetTask:output_type -> jbat.tap.v1.task.GetTaskResponse
+	9,  // 9: jbat.tap.v1.task.TaskService.SearchTasks:output_type -> jbat.tap.v1.task.SearchTasksResponse
+	10, // 10: jbat.tap.v1.task.TaskService.CompleteTask:output_type -> google.protobuf.Empty
+	11, // 11: jbat.tap.v1.task.TaskService.CreateTask:output_type -> jbat.tap.v1.task.CreateTaskResponse
+	10, // 12: jbat.tap.v1.task.TaskService.UpdateTask:output_type -> google.protobuf.Empty
+	12, // 13: jbat.tap.v1.task.TaskService.DeleteTask:output_type -> jbat.tap.v1.task.DeleteTaskResponse
+	10, // 14: jbat.tap.v1.task.TaskService.RestoreTask:output_type -> google.protobuf.Empty
+	9,  // 15: jbat.tap.v1.task.TaskService.ListDeleted:output_type -> jbat.tap.v1.task.SearchTasksResponse
 	8,  // [8:16] is the sub-list for method output_type
 	0,  // [0:8] is the sub-list for method input_type
 	0,  // [0:0] is the sub-list for extension type_name

@@ -1,6 +1,6 @@
 edition = "2023";
 
-package jbat.task;
+package jbat.tap.v1.task;
 
 import "google/protobuf/empty.proto";
 import "task/get_task_request.proto";

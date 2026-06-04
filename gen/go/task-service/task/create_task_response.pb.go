@@ -71,12 +71,11 @@ var File_task_create_task_response_proto protoreflect.FileDescriptor
 
 const file_task_create_task_response_proto_rawDesc = "" +
 	"\n" +
-	"\x1ftask/create_task_response.proto\x12\tjbat.task\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\"\xd4\x02\n" +
+	"\x1ftask/create_task_response.proto\x12\x10jbat.tap.v1.task\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1fgoogle/api/field_behavior.proto\"\xd4\x02\n" +
 	"\x12CreateTaskResponse\x12\xbf\x01\n" +
 	"\x02id\x18\x01 \x01(\tB\xae\x01\x92A\xa7\x01*\x02id2\x19UUID of the created task.J&\"123e4567-e89b-12d3-a456-426614174001\"\x8a\x01M^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02R\x02id:|\x92Ay\n" +
-	"H*\x12CreateTaskResponse2-Transfer information about a created task id.\xd2\x01\x02id2-{\"id\":\"123e4567-e89b-12d3-a456-426614174001\"}B\x80\x01\n" +
-	"\rcom.jbat.taskB\x17CreateTaskResponseProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Taskb\beditionsp\xe8\a"
+	"H*\x12CreateTaskResponse2-Transfer information about a created task id.\xd2\x01\x02id2-{\"id\":\"123e4567-e89b-12d3-a456-426614174001\"}B\xa6\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\x17CreateTaskResponseProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Taskb\beditionsp\xe8\a"
 
 var (
 	file_task_create_task_response_proto_rawDescOnce sync.Once
@@ -92,7 +91,7 @@ func file_task_create_task_response_proto_rawDescGZIP() []byte {
 
 var file_task_create_task_response_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_task_create_task_response_proto_goTypes = []any{
-	(*CreateTaskResponse)(nil), // 0: jbat.task.CreateTaskResponse
+	(*CreateTaskResponse)(nil), // 0: jbat.tap.v1.task.CreateTaskResponse
 }
 var file_task_create_task_response_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

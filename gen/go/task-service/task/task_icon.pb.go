@@ -105,7 +105,7 @@ var File_task_task_icon_proto protoreflect.FileDescriptor
 
 const file_task_task_icon_proto_rawDesc = "" +
 	"\n" +
-	"\x14task/task_icon.proto\x12\tjbat.task\x1a.protoc-gen-openapiv2/options/annotations.proto*\xd8\x02\n" +
+	"\x14task/task_icon.proto\x12\x10jbat.tap.v1.task\x1a.protoc-gen-openapiv2/options/annotations.proto*\xd8\x02\n" +
 	"\bTaskIcon\x12\x19\n" +
 	"\x15TASK_ICON_UNSPECIFIED\x10\x00\x12\x12\n" +
 	"\x0eTASK_ICON_MARK\x10\x01\x12\x12\n" +
@@ -121,9 +121,8 @@ const file_task_task_icon_proto_rawDesc = "" +
 	"\x12\x16\n" +
 	"\x12TASK_ICON_HOSPITAL\x10\v\x12\x15\n" +
 	"\x11TASK_ICON_OUTDOOR\x10\f\x1a-\x92A*\n" +
-	"\x1eIcon associated with the task.\x1a\bTaskIconBv\n" +
-	"\rcom.jbat.taskB\rTaskIconProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Taskb\beditionsp\xe8\a"
+	"\x1eIcon associated with the task.\x1a\bTaskIconB\x9c\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\rTaskIconProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Taskb\beditionsp\xe8\a"
 
 var (
 	file_task_task_icon_proto_rawDescOnce sync.Once
@@ -139,7 +138,7 @@ func file_task_task_icon_proto_rawDescGZIP() []byte {
 
 var file_task_task_icon_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_task_task_icon_proto_goTypes = []any{
-	(TaskIcon)(0), // 0: jbat.task.TaskIcon
+	(TaskIcon)(0), // 0: jbat.tap.v1.task.TaskIcon
 }
 var file_task_task_icon_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

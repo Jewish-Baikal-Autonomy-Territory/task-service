@@ -1,6 +1,6 @@
 edition = "2023";
 
-package jbat.task;
+package jbat.tap.v1.task;
 
 import "protoc-gen-openapiv2/options/annotations.proto";
 

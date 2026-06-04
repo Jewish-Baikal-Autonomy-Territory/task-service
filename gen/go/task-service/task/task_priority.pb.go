@@ -78,15 +78,14 @@ var File_task_task_priority_proto protoreflect.FileDescriptor
 
 const file_task_task_priority_proto_rawDesc = "" +
 	"\n" +
-	"\x18task/task_priority.proto\x12\tjbat.task\x1a.protoc-gen-openapiv2/options/annotations.proto*\xa4\x01\n" +
+	"\x18task/task_priority.proto\x12\x10jbat.tap.v1.task\x1a.protoc-gen-openapiv2/options/annotations.proto*\xa4\x01\n" +
 	"\fTaskPriority\x12\x1d\n" +
 	"\x19TASK_PRIORITY_UNSPECIFIED\x10\x00\x12\x15\n" +
 	"\x11TASK_PRIORITY_LOW\x10\x01\x12\x18\n" +
 	"\x14TASK_PRIORITY_MEDIUM\x10\x02\x12\x16\n" +
 	"\x12TASK_PRIORITY_HIGH\x10\x03\x1a,\x92A)\n" +
-	"\x19Priority level of a task.\x1a\fTaskPriorityBz\n" +
-	"\rcom.jbat.taskB\x11TaskPriorityProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Taskb\beditionsp\xe8\a"
+	"\x19Priority level of a task.\x1a\fTaskPriorityB\xa0\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\x11TaskPriorityProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Taskb\beditionsp\xe8\a"
 
 var (
 	file_task_task_priority_proto_rawDescOnce sync.Once
@@ -102,7 +101,7 @@ func file_task_task_priority_proto_rawDescGZIP() []byte {
 
 var file_task_task_priority_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_task_task_priority_proto_goTypes = []any{
-	(TaskPriority)(0), // 0: jbat.task.TaskPriority
+	(TaskPriority)(0), // 0: jbat.tap.v1.task.TaskPriority
 }
 var file_task_task_priority_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

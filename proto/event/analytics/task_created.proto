@@ -1,0 +1,34 @@
+edition = "2023";
+
+package jbat.tap.v1.event.analytics;
+
+import "buf/validate/validate.proto";
+import "google/protobuf/timestamp.proto";
+import "task/geo_point.proto";
+
+option features.field_presence = EXPLICIT;
+
+message TaskCreated {
+  string task_id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  string user_id = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  string group_id = 3 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  jbat.tap.v1.task.GeoPoint location = 4 [
+    (buf.validate.field).required = false
+  ];
+
+  google.protobuf.Timestamp created_at = 5 [
+    (buf.validate.field).required = true
+  ];
+}

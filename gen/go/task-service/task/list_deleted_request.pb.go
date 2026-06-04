@@ -80,13 +80,12 @@ var File_task_list_deleted_request_proto protoreflect.FileDescriptor
 
 const file_task_list_deleted_request_proto_rawDesc = "" +
 	"\n" +
-	"\x1ftask/list_deleted_request.proto\x12\tjbat.task\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1bbuf/validate/validate.proto\x1a\x11task/cursor.proto\"\x88\x05\n" +
-	"\x12ListDeletedRequest\x12\xc2\x01\n" +
-	"\x06cursor\x18\x01 \x01(\v2\x11.jbat.task.CursorB\x96\x01\x92A\x89\x01*\x06cursor2BCursor that represents current position and output limit of tasks.J+{\"key\":\"2025-01-31T23:59:59Z\",\"limit\":\"20\"}\xd2\x01\x04true\xa2\x02\x06object\xe0A\x02\xbaH\x03\xc8\x01\x01R\x06cursor\x12\x9c\x02\n" +
+	"\x1ftask/list_deleted_request.proto\x12\x10jbat.tap.v1.task\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1bbuf/validate/validate.proto\x1a\x11task/cursor.proto\"\x8f\x05\n" +
+	"\x12ListDeletedRequest\x12\xc9\x01\n" +
+	"\x06cursor\x18\x01 \x01(\v2\x18.jbat.tap.v1.task.CursorB\x96\x01\x92A\x89\x01*\x06cursor2BCursor that represents current position and output limit of tasks.J+{\"key\":\"2025-01-31T23:59:59Z\",\"limit\":\"20\"}\xd2\x01\x04true\xa2\x02\x06object\xe0A\x02\xbaH\x03\xc8\x01\x01R\x06cursor\x12\x9c\x02\n" +
 	"\bgroup_id\x18\x02 \x01(\tB\xff\x01\x92A\xc6\x01*\bgroup_id21UUID of the group the task belongs to (optional).J&\"123e4567-e89b-12d3-a456-426614174001\"\x8a\x01M^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\xd2\x01\x05false\xa2\x02\x06string\xe0A\x01\xbaH/\xc8\x01\x00r*\x92\x02$123e4567-e89b-12d3-a456-426614174001\xb0\x01\x01R\bgroup_id:\x8d\x01\x92A\x89\x01\n" +
-	"O*\x12ListDeletedRequest20Transfer information about filtering conditions.\xd2\x01\x06cursor26{\"cursor\":{\"key\":\"2025-01-31T23:59:59Z\",\"limit\":\"20\"}}B\x85\x01\n" +
-	"\rcom.jbat.taskB\x17ListDeletedRequestProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
+	"O*\x12ListDeletedRequest20Transfer information about filtering conditions.\xd2\x01\x06cursor26{\"cursor\":{\"key\":\"2025-01-31T23:59:59Z\",\"limit\":\"20\"}}B\xab\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\x17ListDeletedRequestProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
 
 var (
 	file_task_list_deleted_request_proto_rawDescOnce sync.Once
@@ -102,11 +101,11 @@ func file_task_list_deleted_request_proto_rawDescGZIP() []byte {
 
 var file_task_list_deleted_request_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_task_list_deleted_request_proto_goTypes = []any{
-	(*ListDeletedRequest)(nil), // 0: jbat.task.ListDeletedRequest
-	(*Cursor)(nil),             // 1: jbat.task.Cursor
+	(*ListDeletedRequest)(nil), // 0: jbat.tap.v1.task.ListDeletedRequest
+	(*Cursor)(nil),             // 1: jbat.tap.v1.task.Cursor
 }
 var file_task_list_deleted_request_proto_depIdxs = []int32{
-	1, // 0: jbat.task.ListDeletedRequest.cursor:type_name -> jbat.task.Cursor
+	1, // 0: jbat.tap.v1.task.ListDeletedRequest.cursor:type_name -> jbat.tap.v1.task.Cursor
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

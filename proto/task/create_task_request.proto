@@ -1,6 +1,6 @@
 edition = "2023";
 
-package jbat.task;
+package jbat.tap.v1.task;
 
 import "google/protobuf/timestamp.proto";
 import "google/api/field_behavior.proto";
@@ -27,7 +27,7 @@ message CreateTaskRequest {
       ]
     }
 
-    example: '{"group_id":"123e4567-e89b-12d3-a456-426614174001","title":"Buy groceries","description":"Milk, Bread, Eggs.","is_favorite":true,"priority":"TASK_PRIORITY_MEDIUM","deadline":"2024-12-31T23:59:59Z","icon":"TASK_ICON_MARK"}'
+    example: '{"group_id":"123e4567-e89b-12d3-a456-426614174001","title":"Buy groceries","description":"Milk, Bread, Eggs.","is_favorite":true,"priority":"TASK_PRIORITY_MEDIUM","deadline":"2024-12-31T23:59:59Z","icon":"TASK_ICON_MARK","notify_at":["2024-12-31T14:59:59Z"]}'
   };
 
   string group_id = 1 [
@@ -155,10 +155,11 @@ message CreateTaskRequest {
   ];
 
   repeated google.protobuf.Timestamp notify_at = 9 [
-    (buf.validate.field).required = false,
+    (buf.validate.field).required = true,
+    (buf.validate.field).repeated.min_items = 1,
 
     json_name = "notify_at",
-    (google.api.field_behavior) = OPTIONAL,
+    (google.api.field_behavior) = REQUIRED,
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       title: "notify_at",
       description: "Notification time points for the task (optional).",

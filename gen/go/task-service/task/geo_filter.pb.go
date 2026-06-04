@@ -80,13 +80,12 @@ var File_task_geo_filter_proto protoreflect.FileDescriptor
 
 const file_task_geo_filter_proto_rawDesc = "" +
 	"\n" +
-	"\x15task/geo_filter.proto\x12\tjbat.task\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1bbuf/validate/validate.proto\x1a\x14task/geo_point.proto\"\xbe\x04\n" +
-	"\tGeoFilter\x12\xb8\x01\n" +
-	"\blocation\x18\x01 \x01(\v2\x13.jbat.task.GeoPointB\x86\x01\x92Az*\blocation2/Geographical location associated with the task.J-{\"latitude\":\"37.7749\",\"longitude\":\"122.4194\"}\xd2\x01\x04true\xa2\x02\x06object\xe0A\x02\xbaH\x03\xc8\x01\x01R\blocation\x12\x90\x01\n" +
+	"\x15task/geo_filter.proto\x12\x10jbat.tap.v1.task\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1bbuf/validate/validate.proto\x1a\x14task/geo_point.proto\"\xc5\x04\n" +
+	"\tGeoFilter\x12\xbf\x01\n" +
+	"\blocation\x18\x01 \x01(\v2\x1a.jbat.tap.v1.task.GeoPointB\x86\x01\x92Az*\blocation2/Geographical location associated with the task.J-{\"latitude\":\"37.7749\",\"longitude\":\"122.4194\"}\xd2\x01\x04true\xa2\x02\x06object\xe0A\x02\xbaH\x03\xc8\x01\x01R\blocation\x12\x90\x01\n" +
 	"\x06radius\x18\x02 \x01(\x01Bx\x92Aa*\x06radius2?Radius of the area where searching will be performed in meters.J\x065000.0\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\x0e\xc8\x01\x01\x12\t)\x00\x00\x00\x00\x00\x00\x00\x00R\x06radius:\xe2\x01\x92A\xde\x01\n" +
-	"\x92\x01*\tGeoFilter2qTransfer the information that provides the ability to filter tasks according to geographical location and radius.\xd2\x01\blocation\xd2\x01\x06radius2G{\"location\":{\"latitude\":\"37.7749\",\"longitude\":\"122.4194\"},\"radius\":\"5\"}B|\n" +
-	"\rcom.jbat.taskB\x0eGeoFilterProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
+	"\x92\x01*\tGeoFilter2qTransfer the information that provides the ability to filter tasks according to geographical location and radius.\xd2\x01\blocation\xd2\x01\x06radius2G{\"location\":{\"latitude\":\"37.7749\",\"longitude\":\"122.4194\"},\"radius\":\"5\"}B\xa2\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\x0eGeoFilterProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
 
 var (
 	file_task_geo_filter_proto_rawDescOnce sync.Once
@@ -102,11 +101,11 @@ func file_task_geo_filter_proto_rawDescGZIP() []byte {
 
 var file_task_geo_filter_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_task_geo_filter_proto_goTypes = []any{
-	(*GeoFilter)(nil), // 0: jbat.task.GeoFilter
-	(*GeoPoint)(nil),  // 1: jbat.task.GeoPoint
+	(*GeoFilter)(nil), // 0: jbat.tap.v1.task.GeoFilter
+	(*GeoPoint)(nil),  // 1: jbat.tap.v1.task.GeoPoint
 }
 var file_task_geo_filter_proto_depIdxs = []int32{
-	1, // 0: jbat.task.GeoFilter.location:type_name -> jbat.task.GeoPoint
+	1, // 0: jbat.tap.v1.task.GeoFilter.location:type_name -> jbat.tap.v1.task.GeoPoint
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

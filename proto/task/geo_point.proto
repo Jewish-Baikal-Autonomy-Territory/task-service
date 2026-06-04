@@ -1,6 +1,6 @@
 edition = "2023";
 
-package jbat.task;
+package jbat.tap.v1.task;
 
 import "buf/validate/validate.proto";
 import "google/api/field_behavior.proto";

@@ -81,14 +81,13 @@ var File_task_cursor_proto protoreflect.FileDescriptor
 
 const file_task_cursor_proto_rawDesc = "" +
 	"\n" +
-	"\x11task/cursor.proto\x12\tjbat.task\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xe9\x03\n" +
+	"\x11task/cursor.proto\x12\x10jbat.tap.v1.task\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xe9\x03\n" +
 	"\x06Cursor\x12\xb2\x01\n" +
 	"\x03key\x18\x01 \x01(\v2\x1a.google.protobuf.TimestampB\x83\x01\x92Al*\x03key2:Key of the last tasks purge time (High-Water Mark cursor).J\x16\"2024-12-31T23:59:59Z\"\xd2\x01\x04true\xa2\x02\tdate-time\xe0A\x02\xbaH\x0e\xc8\x01\x01\xb2\x01\bR\x06\b\x80\x9aÝ\x06R\x03key\x12`\n" +
 	"\x05limit\x18\x02 \x01(\x04BJ\x92A:*\x05limit2\x1dLimit of the tasks to output.J\x0220\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\a\xc8\x01\x012\x02@\n" +
 	"R\x05limit:\xc7\x01\x92A\xc3\x01\n" +
-	"\x92\x01*\x06Cursor2zTransfer information about time position and limit. Key should be the last time position received from search like method.\xd2\x01\x03key\xd2\x01\x05limit2,{\"key\":\"2024-12-31T23:59:59Z\",\"limit\":\"100\"}Bt\n" +
-	"\rcom.jbat.taskB\vCursorProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Taskb\beditionsp\xe8\a"
+	"\x92\x01*\x06Cursor2zTransfer information about time position and limit. Key should be the last time position received from search like method.\xd2\x01\x03key\xd2\x01\x05limit2,{\"key\":\"2024-12-31T23:59:59Z\",\"limit\":\"100\"}B\x9a\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\vCursorProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Taskb\beditionsp\xe8\a"
 
 var (
 	file_task_cursor_proto_rawDescOnce sync.Once
@@ -104,11 +103,11 @@ func file_task_cursor_proto_rawDescGZIP() []byte {
 
 var file_task_cursor_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_task_cursor_proto_goTypes = []any{
-	(*Cursor)(nil),                // 0: jbat.task.Cursor
+	(*Cursor)(nil),                // 0: jbat.tap.v1.task.Cursor
 	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
 }
 var file_task_cursor_proto_depIdxs = []int32{
-	1, // 0: jbat.task.Cursor.key:type_name -> google.protobuf.Timestamp
+	1, // 0: jbat.tap.v1.task.Cursor.key:type_name -> google.protobuf.Timestamp
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

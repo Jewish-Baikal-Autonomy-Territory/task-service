@@ -80,13 +80,12 @@ var File_task_geo_point_proto protoreflect.FileDescriptor
 
 const file_task_geo_point_proto_rawDesc = "" +
 	"\n" +
-	"\x14task/geo_point.proto\x12\tjbat.task\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xbe\x03\n" +
+	"\x14task/geo_point.proto\x12\x10jbat.tap.v1.task\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xbe\x03\n" +
 	"\bGeoPoint\x12\x93\x01\n" +
 	"\blatitude\x18\x01 \x01(\x01Bw\x92AW*\blatitude26Latitude of the geographical point between -90 and 90.J\x03\"1\"\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\x17\xc8\x01\x01\x12\x12\x11\x00\x00\x00\x00\x00\x80V@!\x00\x00\x00\x00\x00\x80V\xc0R\blatitude\x12\x9b\x01\n" +
 	"\tlongitude\x18\x02 \x01(\x01B}\x92A]*\tlongitude29Longitude of the geographical point between -180 and 180.J\x05\"2.0\"\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\x17\xc8\x01\x01\x12\x12\x11\x00\x00\x00\x00\x00\x80f@!\x00\x00\x00\x00\x00\x80f\xc0R\tlongitude:~\x92A{\n" +
-	"S*\bGeoPoint20Transfer information about a geographical point.\xd2\x01\blatitude\xd2\x01\tlongitude2${\"latitude\":\"1.5\",\"longitude\":\"2.3\"}B{\n" +
-	"\rcom.jbat.taskB\rGeoPointProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
+	"S*\bGeoPoint20Transfer information about a geographical point.\xd2\x01\blatitude\xd2\x01\tlongitude2${\"latitude\":\"1.5\",\"longitude\":\"2.3\"}B\xa1\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\rGeoPointProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
 
 var (
 	file_task_geo_point_proto_rawDescOnce sync.Once
@@ -102,7 +101,7 @@ func file_task_geo_point_proto_rawDescGZIP() []byte {
 
 var file_task_geo_point_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_task_geo_point_proto_goTypes = []any{
-	(*GeoPoint)(nil), // 0: jbat.task.GeoPoint
+	(*GeoPoint)(nil), // 0: jbat.tap.v1.task.GeoPoint
 }
 var file_task_geo_point_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

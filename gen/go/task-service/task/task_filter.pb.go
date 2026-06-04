@@ -30,8 +30,8 @@ type TaskFilter struct {
 	GroupId       *string                `protobuf:"bytes,2,opt,name=group_id" json:"group_id,omitempty"`
 	GeoFilter     *GeoFilter             `protobuf:"bytes,3,opt,name=geo_filter" json:"geo_filter,omitempty"`
 	IsFavorite    *bool                  `protobuf:"varint,4,opt,name=is_favorite" json:"is_favorite,omitempty"`
-	Priority      *TaskPriority          `protobuf:"varint,5,opt,name=priority,enum=jbat.task.TaskPriority" json:"priority,omitempty"`
-	Status        *TaskStatus            `protobuf:"varint,6,opt,name=status,enum=jbat.task.TaskStatus" json:"status,omitempty"`
+	Priority      *TaskPriority          `protobuf:"varint,5,opt,name=priority,enum=jbat.tap.v1.task.TaskPriority" json:"priority,omitempty"`
+	Status        *TaskStatus            `protobuf:"varint,6,opt,name=status,enum=jbat.tap.v1.task.TaskStatus" json:"status,omitempty"`
 	Cursor        *Cursor                `protobuf:"bytes,7,opt,name=cursor" json:"cursor,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -120,24 +120,23 @@ var File_task_task_filter_proto protoreflect.FileDescriptor
 
 const file_task_task_filter_proto_rawDesc = "" +
 	"\n" +
-	"\x16task/task_filter.proto\x12\tjbat.task\x1a\x15task/geo_filter.proto\x1a\x18task/task_priority.proto\x1a\x16task/task_status.proto\x1a\x11task/cursor.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1bbuf/validate/validate.proto\"\x8c\r\n" +
+	"\x16task/task_filter.proto\x12\x10jbat.tap.v1.task\x1a\x15task/geo_filter.proto\x1a\x18task/task_priority.proto\x1a\x16task/task_status.proto\x1a\x11task/cursor.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1bbuf/validate/validate.proto\"\xa8\r\n" +
 	"\n" +
 	"TaskFilter\x12\xdf\x01\n" +
 	"\fsearch_query\x18\x01 \x01(\tB\xc1\x01\x92A\xad\x01*\x05query2\x80\x01Text query to search that will be used for exact or keywords matching. Also support negation patterns to exclude search patters.J\v\"buy -milk\"x\x90N\x80\x01\x01\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\n" +
 	"\xc8\x01\x01r\x05\x10\x01\x18\x90NR\x05query\x12\xf5\x01\n" +
-	"\bgroup_id\x18\x02 \x01(\tB\xd8\x01\x92A\xc6\x01*\bgroup_id21UUID of the group the task belongs to (optional).J&\"123e4567-e89b-12d3-a456-426614174001\"\x8a\x01M^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\xd2\x01\x05false\xa2\x02\x06string\xe0A\x01\xbaH\b\xc8\x01\x00r\x03\xb0\x01\x01R\bgroup_id\x12\xf4\x01\n" +
+	"\bgroup_id\x18\x02 \x01(\tB\xd8\x01\x92A\xc6\x01*\bgroup_id21UUID of the group the task belongs to (optional).J&\"123e4567-e89b-12d3-a456-426614174001\"\x8a\x01M^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\xd2\x01\x05false\xa2\x02\x06string\xe0A\x01\xbaH\b\xc8\x01\x00r\x03\xb0\x01\x01R\bgroup_id\x12\xfb\x01\n" +
 	"\n" +
-	"geo_filter\x18\x03 \x01(\v2\x14.jbat.task.GeoFilterB\xbd\x01\x92A\xb0\x01*\n" +
+	"geo_filter\x18\x03 \x01(\v2\x1b.jbat.tap.v1.task.GeoFilterB\xbd\x01\x92A\xb0\x01*\n" +
 	"geo_filter2EFilter that gives the ability to provide additional area information.JJ{\"location\":{\"latitude\":\"37.7749\",\"longitude\":\"122.4194\"},\"radius\":\"5000\"}\xd2\x01\x05false\xa2\x02\x06object\xe0A\x01\xbaH\x03\xc8\x01\x00R\n" +
 	"geo_filter\x12{\n" +
-	"\vis_favorite\x18\x04 \x01(\bBY\x92AM*\vis_favorite2&Whether the task is marked as favoriteJ\x04true\xd2\x01\x05false\xa2\x02\aboolean\xe0A\x01\xbaH\x03\xc8\x01\x00R\vis_favorite\x12\xa7\x01\n" +
-	"\bpriority\x18\x05 \x01(\x0e2\x17.jbat.task.TaskPriorityBr\x92Aa*\bpriority2/Priority level of the task (low, medium, high).J\x13\"TASK_PRIORITY_LOW\"\xd2\x01\x05false\xa2\x02\x06string\xe0A\x01\xbaH\b\xc8\x01\x00\x82\x01\x02\x10\x01R\bpriority\x12\xa1\x01\n" +
-	"\x06status\x18\x06 \x01(\x0e2\x15.jbat.task.TaskStatusBr\x92Aa*\x06status2/Priority level of the task (low, medium, high).J\x15\"TASK_STATUS_PENDING\"\xd2\x01\x05false\xa2\x02\x06string\xe0A\x01\xbaH\b\xc8\x01\x00\x82\x01\x02\x10\x01R\x06status\x12\xb2\x01\n" +
-	"\x06cursor\x18\a \x01(\v2\x11.jbat.task.CursorB\x86\x01\x92Az*\x06cursor2BCursor that represents current position and output limit of tasks.J\x1c{\"offset\":\"20\",\"limit\":\"20\"}\xd2\x01\x04true\xa2\x02\x06object\xe0A\x02\xbaH\x03\xc8\x01\x01R\x06cursor:\xac\x02\x92A\xa8\x02\n" +
+	"\vis_favorite\x18\x04 \x01(\bBY\x92AM*\vis_favorite2&Whether the task is marked as favoriteJ\x04true\xd2\x01\x05false\xa2\x02\aboolean\xe0A\x01\xbaH\x03\xc8\x01\x00R\vis_favorite\x12\xae\x01\n" +
+	"\bpriority\x18\x05 \x01(\x0e2\x1e.jbat.tap.v1.task.TaskPriorityBr\x92Aa*\bpriority2/Priority level of the task (low, medium, high).J\x13\"TASK_PRIORITY_LOW\"\xd2\x01\x05false\xa2\x02\x06string\xe0A\x01\xbaH\b\xc8\x01\x00\x82\x01\x02\x10\x01R\bpriority\x12\xa8\x01\n" +
+	"\x06status\x18\x06 \x01(\x0e2\x1c.jbat.tap.v1.task.TaskStatusBr\x92Aa*\x06status2/Priority level of the task (low, medium, high).J\x15\"TASK_STATUS_PENDING\"\xd2\x01\x05false\xa2\x02\x06string\xe0A\x01\xbaH\b\xc8\x01\x00\x82\x01\x02\x10\x01R\x06status\x12\xb9\x01\n" +
+	"\x06cursor\x18\a \x01(\v2\x18.jbat.tap.v1.task.CursorB\x86\x01\x92Az*\x06cursor2BCursor that represents current position and output limit of tasks.J\x1c{\"offset\":\"20\",\"limit\":\"20\"}\xd2\x01\x04true\xa2\x02\x06object\xe0A\x02\xbaH\x03\xc8\x01\x01R\x06cursor:\xac\x02\x92A\xa8\x02\n" +
 	"o*\n" +
-	"TaskFilter2YProvides the ability to filter the tasks set. At least one of the fields must be present.\xd2\x01\x05query2\xb4\x01{\"search_query\":\"Title Description -Geo\",\"group_id\":\"123e4567-e89b-12d3-a456-426614174001\"},\"geo_filter\":{\"location\":{\"latitude\":\"37.7749\",\"longitude\":\"122.4194\"},\"radius\":\"5000\"}}B}\n" +
-	"\rcom.jbat.taskB\x0fTaskFilterProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
+	"TaskFilter2YProvides the ability to filter the tasks set. At least one of the fields must be present.\xd2\x01\x05query2\xb4\x01{\"search_query\":\"Title Description -Geo\",\"group_id\":\"123e4567-e89b-12d3-a456-426614174001\"},\"geo_filter\":{\"location\":{\"latitude\":\"37.7749\",\"longitude\":\"122.4194\"},\"radius\":\"5000\"}}B\xa3\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\x0fTaskFilterProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
 
 var (
 	file_task_task_filter_proto_rawDescOnce sync.Once
@@ -153,17 +152,17 @@ func file_task_task_filter_proto_rawDescGZIP() []byte {
 
 var file_task_task_filter_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_task_task_filter_proto_goTypes = []any{
-	(*TaskFilter)(nil), // 0: jbat.task.TaskFilter
-	(*GeoFilter)(nil),  // 1: jbat.task.GeoFilter
-	(TaskPriority)(0),  // 2: jbat.task.TaskPriority
-	(TaskStatus)(0),    // 3: jbat.task.TaskStatus
-	(*Cursor)(nil),     // 4: jbat.task.Cursor
+	(*TaskFilter)(nil), // 0: jbat.tap.v1.task.TaskFilter
+	(*GeoFilter)(nil),  // 1: jbat.tap.v1.task.GeoFilter
+	(TaskPriority)(0),  // 2: jbat.tap.v1.task.TaskPriority
+	(TaskStatus)(0),    // 3: jbat.tap.v1.task.TaskStatus
+	(*Cursor)(nil),     // 4: jbat.tap.v1.task.Cursor
 }
 var file_task_task_filter_proto_depIdxs = []int32{
-	1, // 0: jbat.task.TaskFilter.geo_filter:type_name -> jbat.task.GeoFilter
-	2, // 1: jbat.task.TaskFilter.priority:type_name -> jbat.task.TaskPriority
-	3, // 2: jbat.task.TaskFilter.status:type_name -> jbat.task.TaskStatus
-	4, // 3: jbat.task.TaskFilter.cursor:type_name -> jbat.task.Cursor
+	1, // 0: jbat.tap.v1.task.TaskFilter.geo_filter:type_name -> jbat.tap.v1.task.GeoFilter
+	2, // 1: jbat.tap.v1.task.TaskFilter.priority:type_name -> jbat.tap.v1.task.TaskPriority
+	3, // 2: jbat.tap.v1.task.TaskFilter.status:type_name -> jbat.tap.v1.task.TaskStatus
+	4, // 3: jbat.tap.v1.task.TaskFilter.cursor:type_name -> jbat.tap.v1.task.Cursor
 	4, // [4:4] is the sub-list for method output_type
 	4, // [4:4] is the sub-list for method input_type
 	4, // [4:4] is the sub-list for extension type_name

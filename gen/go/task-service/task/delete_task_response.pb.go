@@ -81,13 +81,12 @@ var File_task_delete_task_response_proto protoreflect.FileDescriptor
 
 const file_task_delete_task_response_proto_rawDesc = "" +
 	"\n" +
-	"\x1ftask/delete_task_response.proto\x12\tjbat.task\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xa4\x04\n" +
+	"\x1ftask/delete_task_response.proto\x12\x10jbat.tap.v1.task\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1bbuf/validate/validate.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\"\xa4\x04\n" +
 	"\x12DeleteTaskResponse\x12\x82\x01\n" +
 	"\x02id\x18\x01 \x01(\tBr\x92Al*\x02id2.UUID id of the task which is pending deletion.J&\"123e4567-e89b-12d3-a456-426614174001\"\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02R\x02id\x12\xad\x01\n" +
 	"\bpurge_at\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampBu\x92Ao*\bpurge_at28Time point after which task will be permanently deleted.J\x16\"2024-12-31T23:59:59Z\"\xd2\x01\x04true\xa2\x02\tdate-time\xe0A\x02R\bpurge_at:\xd8\x01\x92A\xd4\x01\n" +
-	"\x80\x01*\x12DeleteTaskResponse2ZTransfer information about a task id and time point when task will be permanently deleted.\xd2\x01\x02id\xd2\x01\bpurge_at2O{\"id\":\"123e4567-e89b-12d3-a456-426614174001\",\"purge_at\":\"2024-12-31T23:59:59Z\"}B\x85\x01\n" +
-	"\rcom.jbat.taskB\x17DeleteTaskResponseProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
+	"\x80\x01*\x12DeleteTaskResponse2ZTransfer information about a task id and time point when task will be permanently deleted.\xd2\x01\x02id\xd2\x01\bpurge_at2O{\"id\":\"123e4567-e89b-12d3-a456-426614174001\",\"purge_at\":\"2024-12-31T23:59:59Z\"}B\xab\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\x17DeleteTaskResponseProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
 
 var (
 	file_task_delete_task_response_proto_rawDescOnce sync.Once
@@ -103,11 +102,11 @@ func file_task_delete_task_response_proto_rawDescGZIP() []byte {
 
 var file_task_delete_task_response_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_task_delete_task_response_proto_goTypes = []any{
-	(*DeleteTaskResponse)(nil),    // 0: jbat.task.DeleteTaskResponse
+	(*DeleteTaskResponse)(nil),    // 0: jbat.tap.v1.task.DeleteTaskResponse
 	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
 }
 var file_task_delete_task_response_proto_depIdxs = []int32{
-	1, // 0: jbat.task.DeleteTaskResponse.purge_at:type_name -> google.protobuf.Timestamp
+	1, // 0: jbat.tap.v1.task.DeleteTaskResponse.purge_at:type_name -> google.protobuf.Timestamp
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
 	1, // [1:1] is the sub-list for extension type_name

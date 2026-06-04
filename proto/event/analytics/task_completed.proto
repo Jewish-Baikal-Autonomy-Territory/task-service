@@ -1,0 +1,24 @@
+edition = "2023";
+
+package jbat.tap.v1.event.analytics;
+
+import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+
+option features.field_presence = EXPLICIT;
+
+message TaskCompleted {
+  string task_id = 1 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  string user_id = 2 [
+    (buf.validate.field).required = true,
+    (buf.validate.field).string.uuid = true
+  ];
+
+  google.protobuf.Timestamp completed_at = 3 [
+    (buf.validate.field).required = true
+  ];
+}

@@ -75,16 +75,15 @@ var File_task_task_status_proto protoreflect.FileDescriptor
 
 const file_task_task_status_proto_rawDesc = "" +
 	"\n" +
-	"\x16task/task_status.proto\x12\tjbat.task\x1a.protoc-gen-openapiv2/options/annotations.proto*\x83\x01\n" +
+	"\x16task/task_status.proto\x12\x10jbat.tap.v1.task\x1a.protoc-gen-openapiv2/options/annotations.proto*\x83\x01\n" +
 	"\n" +
 	"TaskStatus\x12\x1b\n" +
 	"\x17TASK_STATUS_UNSPECIFIED\x10\x00\x12\x17\n" +
 	"\x13TASK_STATUS_PENDING\x10\x01\x12\x19\n" +
 	"\x15TASK_STATUS_COMPLETED\x10\x02\x1a$\x92A!\n" +
 	"\x13Status of the task.\x1a\n" +
-	"TaskStatusBx\n" +
-	"\rcom.jbat.taskB\x0fTaskStatusProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Taskb\beditionsp\xe8\a"
+	"TaskStatusB\x9e\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\x0fTaskStatusProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Taskb\beditionsp\xe8\a"
 
 var (
 	file_task_task_status_proto_rawDescOnce sync.Once
@@ -100,7 +99,7 @@ func file_task_task_status_proto_rawDescGZIP() []byte {
 
 var file_task_task_status_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_task_task_status_proto_goTypes = []any{
-	(TaskStatus)(0), // 0: jbat.task.TaskStatus
+	(TaskStatus)(0), // 0: jbat.tap.v1.task.TaskStatus
 }
 var file_task_task_status_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type

@@ -32,8 +32,8 @@ type CreateTaskRequest struct {
 	Description   *string                  `protobuf:"bytes,3,opt,name=description" json:"description,omitempty"`
 	Location      *GeoPoint                `protobuf:"bytes,4,opt,name=location" json:"location,omitempty"`
 	IsFavorite    *bool                    `protobuf:"varint,5,opt,name=is_favorite" json:"is_favorite,omitempty"`
-	Priority      *TaskPriority            `protobuf:"varint,6,opt,name=priority,enum=jbat.task.TaskPriority" json:"priority,omitempty"`
-	Icon          *TaskIcon                `protobuf:"varint,7,opt,name=icon,enum=jbat.task.TaskIcon" json:"icon,omitempty"`
+	Priority      *TaskPriority            `protobuf:"varint,6,opt,name=priority,enum=jbat.tap.v1.task.TaskPriority" json:"priority,omitempty"`
+	Icon          *TaskIcon                `protobuf:"varint,7,opt,name=icon,enum=jbat.tap.v1.task.TaskIcon" json:"icon,omitempty"`
 	Deadline      *timestamppb.Timestamp   `protobuf:"bytes,8,opt,name=deadline" json:"deadline,omitempty"`
 	NotifyAt      []*timestamppb.Timestamp `protobuf:"bytes,9,rep,name=notify_at" json:"notify_at,omitempty"`
 	unknownFields protoimpl.UnknownFields
@@ -137,22 +137,21 @@ var File_task_create_task_request_proto protoreflect.FileDescriptor
 
 const file_task_create_task_request_proto_rawDesc = "" +
 	"\n" +
-	"\x1etask/create_task_request.proto\x12\tjbat.task\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x18task/task_priority.proto\x1a\x16task/task_status.proto\x1a\x14task/task_icon.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1bbuf/validate/validate.proto\x1a\x14task/geo_point.proto\"\xaf\x0e\n" +
+	"\x1etask/create_task_request.proto\x12\x10jbat.tap.v1.task\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1fgoogle/api/field_behavior.proto\x1a\x18task/task_priority.proto\x1a\x16task/task_status.proto\x1a\x14task/task_icon.proto\x1a.protoc-gen-openapiv2/options/annotations.proto\x1a\x1bbuf/validate/validate.proto\x1a\x14task/geo_point.proto\"\xee\x0e\n" +
 	"\x11CreateTaskRequest\x12\xf5\x01\n" +
 	"\bgroup_id\x18\x01 \x01(\tB\xd8\x01\x92A\xc6\x01*\bgroup_id21UUID of the group the task belongs to (optional).J&\"123e4567-e89b-12d3-a456-426614174001\"\x8a\x01M^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$\xd2\x01\x05false\xa2\x02\x06string\xe0A\x01\xbaH\b\xc8\x01\x00r\x03\xb0\x01\x01R\bgroup_id\x12k\n" +
 	"\x05title\x18\x02 \x01(\tBU\x92AB*\x05title2\x12Title of the task.J\x0f\"Buy groceries\"x\xc8\x01\x80\x01\x01\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\n" +
 	"\xc8\x01\x01r\x05\x10\x01\x18\xc8\x01R\x05title\x12\x91\x01\n" +
 	"\vdescription\x18\x03 \x01(\tBo\x92A\\*\vdescription2!Detailed description of the task.J\x14\"Milk, Bread, Eggs.\"x\x90N\x80\x01\x01\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\n" +
-	"\xc8\x01\x01r\x05\x10\x01\x18\x90NR\vdescription\x12\xc5\x01\n" +
-	"\blocation\x18\x04 \x01(\v2\x13.jbat.task.GeoPointB\x93\x01\x92A\x86\x01*\blocation2:Geographical location associated with the task (optional).J-{\"latitude\":\"37.7749\",\"longitude\":\"122.4194\"}\xd2\x01\x05false\xa2\x02\x06object\xe0A\x01\xbaH\x03\xc8\x01\x00R\blocation\x12{\n" +
-	"\vis_favorite\x18\x05 \x01(\bBY\x92AM*\vis_favorite2'Whether the task is marked as favorite.J\x04true\xd2\x01\x04true\xa2\x02\aboolean\xe0A\x02\xbaH\x03\xc8\x01\x01R\vis_favorite\x12\xa6\x01\n" +
-	"\bpriority\x18\x06 \x01(\x0e2\x17.jbat.task.TaskPriorityBq\x92A`*\bpriority2/Priority level of the task (low, medium, high).J\x13\"TASK_PRIORITY_LOW\"\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\b\xc8\x01\x01\x82\x01\x02\x10\x01R\bpriority\x12\x81\x01\n" +
-	"\x04icon\x18\a \x01(\x0e2\x13.jbat.task.TaskIconBX\x92AG*\x04icon2\x1dIcon associated with the taskJ\x10\"TASK_ICON_MARK\"\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\b\xc8\x01\x01\x82\x01\x02\x10\x01R\x04icon\x12\x9d\x01\n" +
-	"\bdeadline\x18\b \x01(\v2\x1a.google.protobuf.TimestampBe\x92AY*\bdeadline2!Deadline for the task (optional).J\x16\"2024-12-31T23:59:59Z\"\xd2\x01\x05false\xa2\x02\tdate-time\xe0A\x01\xbaH\x03\xc8\x01\x00R\bdeadline\x12\xae\x01\n" +
-	"\tnotify_at\x18\t \x03(\v2\x1a.google.protobuf.TimestampBt\x92Ah*\tnotify_at21Notification time points for the task (optional).J\x18[\"2024-12-31T23:59:59Z\"]\xd2\x01\x05false\xa2\x02\x05array\xe0A\x01\xbaH\x03\xc8\x01\x00R\tnotify_at:\xdd\x02\x92A\xd9\x02\n" +
-	"w*\x11CreateTaskRequest2,Transfer information about a task to create.\xd2\x01\x05title\xd2\x01\vdescription\xd2\x01\vis_favorite\xd2\x01\bpriority\xd2\x01\x04icon2\xdd\x01{\"group_id\":\"123e4567-e89b-12d3-a456-426614174001\",\"title\":\"Buy groceries\",\"description\":\"Milk, Bread, Eggs.\",\"is_favorite\":true,\"priority\":\"TASK_PRIORITY_MEDIUM\",\"deadline\":\"2024-12-31T23:59:59Z\",\"icon\":\"TASK_ICON_MARK\"}B\x84\x01\n" +
-	"\rcom.jbat.taskB\x16CreateTaskRequestProtoP\x01Z\x11task-service/task\xa2\x02\x03JTX\xaa\x02\tJbat.Task\xca\x02\tJbat\\Task\xe2\x02\x15Jbat\\Task\\GPBMetadata\xea\x02\n" +
-	"Jbat::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
+	"\xc8\x01\x01r\x05\x10\x01\x18\x90NR\vdescription\x12\xcc\x01\n" +
+	"\blocation\x18\x04 \x01(\v2\x1a.jbat.tap.v1.task.GeoPointB\x93\x01\x92A\x86\x01*\blocation2:Geographical location associated with the task (optional).J-{\"latitude\":\"37.7749\",\"longitude\":\"122.4194\"}\xd2\x01\x05false\xa2\x02\x06object\xe0A\x01\xbaH\x03\xc8\x01\x00R\blocation\x12{\n" +
+	"\vis_favorite\x18\x05 \x01(\bBY\x92AM*\vis_favorite2'Whether the task is marked as favorite.J\x04true\xd2\x01\x04true\xa2\x02\aboolean\xe0A\x02\xbaH\x03\xc8\x01\x01R\vis_favorite\x12\xad\x01\n" +
+	"\bpriority\x18\x06 \x01(\x0e2\x1e.jbat.tap.v1.task.TaskPriorityBq\x92A`*\bpriority2/Priority level of the task (low, medium, high).J\x13\"TASK_PRIORITY_LOW\"\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\b\xc8\x01\x01\x82\x01\x02\x10\x01R\bpriority\x12\x88\x01\n" +
+	"\x04icon\x18\a \x01(\x0e2\x1a.jbat.tap.v1.task.TaskIconBX\x92AG*\x04icon2\x1dIcon associated with the taskJ\x10\"TASK_ICON_MARK\"\xd2\x01\x04true\xa2\x02\x06string\xe0A\x02\xbaH\b\xc8\x01\x01\x82\x01\x02\x10\x01R\x04icon\x12\x9d\x01\n" +
+	"\bdeadline\x18\b \x01(\v2\x1a.google.protobuf.TimestampBe\x92AY*\bdeadline2!Deadline for the task (optional).J\x16\"2024-12-31T23:59:59Z\"\xd2\x01\x05false\xa2\x02\tdate-time\xe0A\x01\xbaH\x03\xc8\x01\x00R\bdeadline\x12\xb3\x01\n" +
+	"\tnotify_at\x18\t \x03(\v2\x1a.google.protobuf.TimestampBy\x92Ah*\tnotify_at21Notification time points for the task (optional).J\x18[\"2024-12-31T23:59:59Z\"]\xd2\x01\x05false\xa2\x02\x05array\xe0A\x02\xbaH\b\xc8\x01\x01\x92\x01\x02\b\x01R\tnotify_at:\x82\x03\x92A\xfe\x02\n" +
+	"w*\x11CreateTaskRequest2,Transfer information about a task to create.\xd2\x01\x05title\xd2\x01\vdescription\xd2\x01\vis_favorite\xd2\x01\bpriority\xd2\x01\x04icon2\x82\x02{\"group_id\":\"123e4567-e89b-12d3-a456-426614174001\",\"title\":\"Buy groceries\",\"description\":\"Milk, Bread, Eggs.\",\"is_favorite\":true,\"priority\":\"TASK_PRIORITY_MEDIUM\",\"deadline\":\"2024-12-31T23:59:59Z\",\"icon\":\"TASK_ICON_MARK\",\"notify_at\":[\"2024-12-31T14:59:59Z\"]}B\xaa\x01\n" +
+	"\x14com.jbat.tap.v1.taskB\x16CreateTaskRequestProtoP\x01Z\x11task-service/task\xa2\x02\x04JTVT\xaa\x02\x10Jbat.Tap.V1.Task\xca\x02\x10Jbat\\Tap\\V1\\Task\xe2\x02\x1cJbat\\Tap\\V1\\Task\\GPBMetadata\xea\x02\x13Jbat::Tap::V1::Task\x92\x03\x02\b\x01b\beditionsp\xe8\a"
 
 var (
 	file_task_create_task_request_proto_rawDescOnce sync.Once
@@ -168,18 +167,18 @@ func file_task_create_task_request_proto_rawDescGZIP() []byte {
 
 var file_task_create_task_request_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_task_create_task_request_proto_goTypes = []any{
-	(*CreateTaskRequest)(nil),     // 0: jbat.task.CreateTaskRequest
-	(*GeoPoint)(nil),              // 1: jbat.task.GeoPoint
-	(TaskPriority)(0),             // 2: jbat.task.TaskPriority
-	(TaskIcon)(0),                 // 3: jbat.task.TaskIcon
+	(*CreateTaskRequest)(nil),     // 0: jbat.tap.v1.task.CreateTaskRequest
+	(*GeoPoint)(nil),              // 1: jbat.tap.v1.task.GeoPoint
+	(TaskPriority)(0),             // 2: jbat.tap.v1.task.TaskPriority
+	(TaskIcon)(0),                 // 3: jbat.tap.v1.task.TaskIcon
 	(*timestamppb.Timestamp)(nil), // 4: google.protobuf.Timestamp
 }
 var file_task_create_task_request_proto_depIdxs = []int32{
-	1, // 0: jbat.task.CreateTaskRequest.location:type_name -> jbat.task.GeoPoint
-	2, // 1: jbat.task.CreateTaskRequest.priority:type_name -> jbat.task.TaskPriority
-	3, // 2: jbat.task.CreateTaskRequest.icon:type_name -> jbat.task.TaskIcon
-	4, // 3: jbat.task.CreateTaskRequest.deadline:type_name -> google.protobuf.Timestamp
-	4, // 4: jbat.task.CreateTaskRequest.notify_at:type_name -> google.protobuf.Timestamp
+	1, // 0: jbat.tap.v1.task.CreateTaskRequest.location:type_name -> jbat.tap.v1.task.GeoPoint
+	2, // 1: jbat.tap.v1.task.CreateTaskRequest.priority:type_name -> jbat.tap.v1.task.TaskPriority
+	3, // 2: jbat.tap.v1.task.CreateTaskRequest.icon:type_name -> jbat.tap.v1.task.TaskIcon
+	4, // 3: jbat.tap.v1.task.CreateTaskRequest.deadline:type_name -> google.protobuf.Timestamp
+	4, // 4: jbat.tap.v1.task.CreateTaskRequest.notify_at:type_name -> google.protobuf.Timestamp
 	5, // [5:5] is the sub-list for method output_type
 	5, // [5:5] is the sub-list for method input_type
 	5, // [5:5] is the sub-list for extension type_name
