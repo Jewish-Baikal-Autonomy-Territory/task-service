@@ -34,8 +34,9 @@ type CompleteHandler interface {
 }
 
 type completeHandler struct {
-	repository  domaintask.Repository
-	accessGuard AccessGuard
+	repository        domaintask.Repository
+	accessGuard       AccessGuard
+	completePublisher domaintask.CompleteTaskPublisher
 }
 
 func (h *completeHandler) Handle(ctx context.Context, command CompleteTaskCommand) error {
@@ -69,7 +70,7 @@ func (h *completeHandler) Handle(ctx context.Context, command CompleteTaskComman
 	return nil
 }
 
-func NewCompleteHandler(repository domaintask.Repository, guard AccessGuard) (CompleteHandler, error) {
+func NewCompleteHandler(repository domaintask.Repository, guard AccessGuard, completePublisher domaintask.CompleteTaskPublisher) (CompleteHandler, error) {
 	if repository == nil {
 		return nil, errors.New("repository is missing")
 	}
@@ -78,8 +79,13 @@ func NewCompleteHandler(repository domaintask.Repository, guard AccessGuard) (Co
 		return nil, errors.New("guard is missing")
 	}
 
+	if completePublisher == nil {
+		return nil, errors.New("complete publisher is missing")
+	}
+
 	return &completeHandler{
-		repository:  repository,
-		accessGuard: guard,
+		repository:        repository,
+		accessGuard:       guard,
+		completePublisher: completePublisher,
 	}, nil
 }

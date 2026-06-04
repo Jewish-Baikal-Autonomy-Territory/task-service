@@ -159,7 +159,56 @@ func main() {
 			Msg("apptask.NewSearchHandler")
 	}
 
-	createHandler, err := apptask.NewCreateHandler(repository, accessGuard)
+	notificationPublisher, err := kafka.NewTaskNotificationEventPublisher(
+		kafka.NotificationEventPublisherOptions{
+			Brokers:       strings.Split(utility.GetEnv("EVENT_BUS_BROKERS", "localhost:9092"), ","),
+			Topic:         utility.GetEnv("TASK_NOTIFICATION_TOPIC", "task.notification"),
+			BatchSize:     int(utility.GetEnvInt("TASK_NOTIFICATION_PUBLISHER_BATCH_SIZE", 10)),
+			BatchBytes:    int64(utility.GetEnvInt("TASK_NOTIFICATION_PUBLISHER_BATCH_BYTES", 10000)),
+			BatchTimeout:  utility.GetEnvDuration("TASK_NOTIFICATION_PUBLISHER_BATCH_TIMEOUT", 20*time.Millisecond),
+			RetryAttempts: int(utility.GetEnvInt("TASK_NOTIFICATION_PUBLISHER_RETRY_ATTEMPTS", 3)),
+		},
+	)
+	if err != nil {
+		logger.Fatal().
+			Err(err).
+			Msg("kafka.NewTaskNotificationEventPublisher")
+	}
+
+	defer func() {
+		if err := notificationPublisher.Close(); err != nil {
+			logger.Error().
+				Err(err).
+				Msg("kafka.NotificationPublisher.Close")
+		}
+	}()
+
+	//createdPublisher, err := kafka.NewTaskCreatedEventPublisher(
+	//	kafka.TaskCreatedEventPublisherOptions{
+	//		Brokers:       strings.Split(utility.GetEnv("EVENT_BUS_BROKERS", "localhost:9092"), ","),
+	//		Topic:         utility.GetEnv("TASK_CREATED_PUBLISHER_TOPIC", "task.created"),
+	//		BatchSize:     int(utility.GetEnvInt("TASK_CREATED_PUBLISHER_BATCH_SIZE", 10)),
+	//		BatchBytes:    int64(utility.GetEnvInt("TASK_CREATED_PUBLISHER_BATCH_BYTES", 10000)),
+	//		BatchTimeout:  utility.GetEnvDuration("TASK_CREATED_PUBLISHER_BATCH_TIMEOUT", 20*time.Millisecond),
+	//		RetryAttempts: int(utility.GetEnvInt("TASK_CREATED_PUBLISHER_RETRY_ATTEMPTS", 3)),
+	//	},
+	//)
+	//if err != nil {
+	//	logger.Fatal().
+	//		Err(err).
+	//		Msg("kafka.NewTaskCreatedEventPublisher")
+	//}
+	//
+	//defer func() {
+	//	if err := createdPublisher.Close(); err != nil {
+	//		logger.Error().
+	//			Err(err).
+	//			Msg("kafka.TaskCreatedEventPublisher.Close")
+	//	}
+	//}()
+
+	//createHandler, err := apptask.NewCreateHandler(repository, accessGuard, notificationPublisher, createdPublisher)
+	createHandler, err := apptask.NewCreateHandler(repository, accessGuard, notificationPublisher)
 	if err != nil {
 		logger.Fatal().
 			Err(err).
@@ -173,7 +222,31 @@ func main() {
 			Msg("apptask.NewUpdateHandler")
 	}
 
-	completeHandler, err := apptask.NewCompleteHandler(repository, accessGuard)
+	completePublisher, err := kafka.NewCompleteTaskPublisher(
+		kafka.CompleteTaskPublisherOptions{
+			Brokers:       strings.Split(utility.GetEnv("EVENT_BUS_BROKERS", "localhost:9092"), ","),
+			Topic:         utility.GetEnv("TASK_COMPLETE_PUBLISHER_TOPIC", "task.complete"),
+			BatchSize:     int(utility.GetEnvInt("TASK_COMPLETE_PUBLISHER_BATCH_SIZE", 10)),
+			BatchBytes:    int64(utility.GetEnvInt("TASK_COMPLETE_PUBLISHER_BATCH_BYTES", 10000)),
+			BatchTimeout:  utility.GetEnvDuration("TASK_COMPLETE_PUBLISHER_BATCH_TIMEOUT", 20*time.Millisecond),
+			RetryAttempts: int(utility.GetEnvInt("TASK_COMPLETE_PUBLISHER_RETRY_ATTEMPTS", 3)),
+		},
+	)
+	if err != nil {
+		logger.Fatal().
+			Err(err).
+			Msg("kafka.NewCompleteTaskPublisher")
+	}
+
+	defer func() {
+		if err := completePublisher.Close(); err != nil {
+			logger.Error().
+				Err(err).
+				Msg("kafka.CompleteTaskPublisher.Close")
+		}
+	}()
+
+	completeHandler, err := apptask.NewCompleteHandler(repository, accessGuard, completePublisher)
 	if err != nil {
 		logger.Fatal().
 			Err(err).
@@ -240,13 +313,13 @@ func main() {
 	deletedUserConsumer, err := kafka.NewUserDeletedConsumer(deleteUserTasksHandler, kafka.UserDeletedConsumerOptions{
 		Logger:            otelLogger,
 		Brokers:           strings.Split(utility.GetEnv("EVENT_BUS_BROKERS", "localhost:9092"), ","),
-		GroupID:           utility.GetEnv("EVENT_BUS_GROUP_ID", ""),
-		Topic:             utility.GetEnv("EVENT_BUS_TOPIC", ""),
-		MinBytes:          int(utility.GetEnvInt("EVENT_BUS_MIN_BYTES", 1)),
-		MaxBytes:          int(utility.GetEnvInt("EVENT_BUS_MAX_BYTES", 100)),
-		MaxWait:           utility.GetEnvDuration("EVENT_BUS_MAX_WAIT", 1*time.Second),
-		HeartbeatInterval: utility.GetEnvDuration("EVENT_BUS_HEARTBEAT_INTERVAL", 30*time.Second),
-		SessionTimeout:    utility.GetEnvDuration("EVENT_BUS_SESSION_TIME", 30*time.Minute),
+		GroupID:           utility.GetEnv("TASK_USER_DELETED_CONSUMER_GROUP_ID", ""),
+		Topic:             utility.GetEnv("TASK_USER_DELETED_CONSUMER_TOPIC", ""),
+		MinBytes:          int(utility.GetEnvInt("TASK_USER_DELETED_CONSUMER_MIN_BYTES", 1)),
+		MaxBytes:          int(utility.GetEnvInt("TASK_USER_DELETED_CONSUMER_MAX_BYTES", 100)),
+		MaxWait:           utility.GetEnvDuration("TASK_USER_DELETED_CONSUMER_MAX_WAIT", 1*time.Second),
+		HeartbeatInterval: utility.GetEnvDuration("TASK_USER_DELETED_CONSUMER_HEARTBEAT_INTERVAL", 30*time.Second),
+		SessionTimeout:    utility.GetEnvDuration("TASK_USER_DELETED_CONSUMER_SESSION_TIME", 30*time.Minute),
 	})
 	if err != nil {
 		logger.Fatal().
