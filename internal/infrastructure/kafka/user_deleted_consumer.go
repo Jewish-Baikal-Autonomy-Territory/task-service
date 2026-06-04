@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"task-service/gen/go/task-service/event"
+	pbsystem "task-service/gen/go/task-service/event/system"
 	appevent "task-service/internal/application/event"
 	"time"
 
@@ -37,7 +37,7 @@ func (c *UserDeletedConsumer) Handle(ctx context.Context) error {
 			continue
 		}
 
-		var userDeleted event.UserDeleted
+		var userDeleted pbsystem.UserDeleted
 		if err = proto.Unmarshal(msg.Value, &userDeleted); err != nil {
 			c.logger.Error().
 				Str("UserDeletedConsumer", "Handle").
