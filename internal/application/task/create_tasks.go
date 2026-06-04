@@ -113,8 +113,10 @@ type CreateHandler interface {
 }
 
 type createHandler struct {
-	repository  domaintask.Repository
-	accessGuard AccessGuard
+	repository            domaintask.Repository
+	accessGuard           AccessGuard
+	notificationPublisher domaintask.NotificationEventPublisher
+	createdPublisher      domaintask.CreatedTaskPublisher
 }
 
 func (h *createHandler) Handle(ctx context.Context, command *CreateTaskCommand) (uuid.UUID, error) {
@@ -158,10 +160,38 @@ func (h *createHandler) Handle(ctx context.Context, command *CreateTaskCommand) 
 		return uuid.Nil, fmt.Errorf("create task: %w", err)
 	}
 
+	// TODO: This implementation is intended only for test purposes in MVP stage.
+	// TODO: Change this configuration to be atomic: create + notify
+	// TODO: Otherwise it failes.
+	// FIXME: Change as fast as possible.
+	notificationEvent := domaintask.NewNotificationEvent(task.ID, task.OwnerID, task.Title, task.NotifyAt)
+	_ = h.notificationPublisher.Notify(ctx, notificationEvent)
+
+	eventBuilder := domaintask.NewCreatedTaskEventBuilder().
+		WithTaskID(task.ID).
+		WithUserID(task.OwnerID).
+		WithCreatedAt(task.CreatedAt)
+
+	if groupID, ok := task.GroupID.Get(); ok {
+		eventBuilder.WithGroupID(groupID)
+	}
+
+	if location, ok := task.Location.Get(); ok {
+		eventBuilder.WithLocation(location)
+	}
+
+	createdEvent := eventBuilder.Build()
+	_ = h.createdPublisher.Publish(ctx, createdEvent)
+
 	return task.ID, nil
 }
 
-func NewCreateHandler(repository domaintask.Repository, guard AccessGuard) (CreateHandler, error) {
+func NewCreateHandler(
+	repository domaintask.Repository,
+	guard AccessGuard,
+	notificationPublisher domaintask.NotificationEventPublisher,
+	createdPublisher domaintask.CreatedTaskPublisher,
+) (CreateHandler, error) {
 	if repository == nil {
 		return nil, errors.New("repository is missing")
 	}
@@ -170,8 +200,18 @@ func NewCreateHandler(repository domaintask.Repository, guard AccessGuard) (Crea
 		return nil, errors.New("guard is missing")
 	}
 
+	if notificationPublisher == nil {
+		return nil, errors.New("publisher is missing")
+	}
+
+	if createdPublisher == nil {
+		return nil, errors.New("created publisher is missing")
+	}
+
 	return &createHandler{
-		repository:  repository,
-		accessGuard: guard,
+		repository:            repository,
+		accessGuard:           guard,
+		notificationPublisher: notificationPublisher,
+		createdPublisher:      createdPublisher,
 	}, nil
 }

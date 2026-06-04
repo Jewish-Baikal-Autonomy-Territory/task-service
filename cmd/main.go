@@ -183,32 +183,31 @@ func main() {
 		}
 	}()
 
-	//createdPublisher, err := kafka.NewTaskCreatedEventPublisher(
-	//	kafka.TaskCreatedEventPublisherOptions{
-	//		Brokers:       strings.Split(utility.GetEnv("EVENT_BUS_BROKERS", "localhost:9092"), ","),
-	//		Topic:         utility.GetEnv("TASK_CREATED_PUBLISHER_TOPIC", "task.created"),
-	//		BatchSize:     int(utility.GetEnvInt("TASK_CREATED_PUBLISHER_BATCH_SIZE", 10)),
-	//		BatchBytes:    int64(utility.GetEnvInt("TASK_CREATED_PUBLISHER_BATCH_BYTES", 10000)),
-	//		BatchTimeout:  utility.GetEnvDuration("TASK_CREATED_PUBLISHER_BATCH_TIMEOUT", 20*time.Millisecond),
-	//		RetryAttempts: int(utility.GetEnvInt("TASK_CREATED_PUBLISHER_RETRY_ATTEMPTS", 3)),
-	//	},
-	//)
-	//if err != nil {
-	//	logger.Fatal().
-	//		Err(err).
-	//		Msg("kafka.NewTaskCreatedEventPublisher")
-	//}
-	//
-	//defer func() {
-	//	if err := createdPublisher.Close(); err != nil {
-	//		logger.Error().
-	//			Err(err).
-	//			Msg("kafka.TaskCreatedEventPublisher.Close")
-	//	}
-	//}()
+	createdPublisher, err := kafka.NewTaskCreatedEventPublisher(
+		kafka.TaskCreatedEventPublisherOptions{
+			Brokers:       strings.Split(utility.GetEnv("EVENT_BUS_BROKERS", "localhost:9092"), ","),
+			Topic:         utility.GetEnv("TASK_CREATED_PUBLISHER_TOPIC", "task.created"),
+			BatchSize:     int(utility.GetEnvInt("TASK_CREATED_PUBLISHER_BATCH_SIZE", 10)),
+			BatchBytes:    int64(utility.GetEnvInt("TASK_CREATED_PUBLISHER_BATCH_BYTES", 10000)),
+			BatchTimeout:  utility.GetEnvDuration("TASK_CREATED_PUBLISHER_BATCH_TIMEOUT", 20*time.Millisecond),
+			RetryAttempts: int(utility.GetEnvInt("TASK_CREATED_PUBLISHER_RETRY_ATTEMPTS", 3)),
+		},
+	)
+	if err != nil {
+		logger.Fatal().
+			Err(err).
+			Msg("kafka.NewTaskCreatedEventPublisher")
+	}
 
-	//createHandler, err := apptask.NewCreateHandler(repository, accessGuard, notificationPublisher, createdPublisher)
-	createHandler, err := apptask.NewCreateHandler(repository, accessGuard, notificationPublisher)
+	defer func() {
+		if err := createdPublisher.Close(); err != nil {
+			logger.Error().
+				Err(err).
+				Msg("kafka.TaskCreatedEventPublisher.Close")
+		}
+	}()
+
+	createHandler, err := apptask.NewCreateHandler(repository, accessGuard, notificationPublisher, createdPublisher)
 	if err != nil {
 		logger.Fatal().
 			Err(err).
