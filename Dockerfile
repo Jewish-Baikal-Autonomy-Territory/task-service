@@ -17,6 +17,6 @@ WORKDIR /app
 COPY --from=build /app/main .
 EXPOSE 8080
 
-ENV GOGC=off
+ENV GOGC=100
 ENV GOMEMLIMIT=512MiB
 ENTRYPOINT ["./main"]
